@@ -27,6 +27,15 @@ export function router(path) {
             });
             break;
 
+        case '/':
+            app.innerHTML = home();
+            setMeta({
+                title: 'Home - Zomo',
+                description: 'Zomo online food ordering platform.',
+                keywords: 'zomo, food, delivery'
+            });
+            break;
+
         default:
             app.innerHTML = home();
             setMeta({

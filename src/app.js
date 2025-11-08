@@ -6,21 +6,25 @@ import { router } from './router.js';
 document.getElementById('header').innerHTML = renderHeader();
 document.getElementById('footer').innerHTML = renderFooter();
 
-// SPA link handler
+// SPA link handler: intercept clicks on links with data-link
 document.addEventListener("click", e => {
     const link = e.target.closest("[data-link]");
-    if (link) {
-        e.preventDefault();
-        const path = link.getAttribute("href");
+    if (!link) return;
+
+    e.preventDefault();
+    const path = link.getAttribute("href");
+
+    // Only push state if path is different from current
+    if (window.location.pathname !== path) {
         history.pushState(null, null, path);
         router(path);
     }
 });
 
-// Handle back/forward buttons
+// Handle browser back/forward buttons
 window.addEventListener('popstate', () => {
     router(window.location.pathname);
 });
 
-// Initial route
-router(window.location.pathname);
+// Initial route: render home or current path
+router(window.location.pathname || '/');
