@@ -1,28 +1,6 @@
 export function renderFooter() {
     return `
     <footer class="footer-section section-t-space">
-        <div class="subscribe-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="subscribe-part">
-                            <h5>
-                                Don't pass up our fantastic discounts. Email offers from all
-                                of our best eateries
-                            </h5>
-
-                            <div class="position-relative w-100">
-                                <input type="email" class="form-control subscribe-form-control"
-                                    placeholder="Enter your Email">
-
-                                <a href="#" class="btn theme-btn subscribe-btn mt-0">Subscribe Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container">
             <div class="main-footer">
                 <div class="row g-3">
@@ -30,7 +8,6 @@ export function renderFooter() {
                     <!-- Logo + About -->
                     <div class="col-xl-4 col-lg-12">
                         <div class="footer-logo-part">
-                            <img class="img-fluid logo" src="assets/images/svg/logo.svg" alt="logo">
                             <p>
                                 Welcome to our online order website! Here, you can browse our
                                 wide selection of products and place orders from the comfort
@@ -115,7 +92,7 @@ export function renderFooter() {
 
             <div class="bottom-footer-part">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                    <h6>© Copyright 2024 ZOMO. All rights Reserved.</h6>
+                    <h6>© Copyright 2025 Foodie Store. All rights Reserved.</h6>
                     <img class="img-fluid cards" src="assets/images/icons/footer-card.png" alt="card">
                 </div>
             </div>

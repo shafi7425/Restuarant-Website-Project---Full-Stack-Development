@@ -1,42 +1,43 @@
-export function home(){
-    return `
+// pages/frontend/index.js
 
-    <!-- skeleton loader start -->
-    <div class="skeleton-loader">
-        
-        <section class="home-wrapper">
-            <div class="container text-center">
-                <div class="loader-gif">
-                    <img src="assets/images/gif/food.gif" alt="food-gif" class="img-fluid">
-                </div>
-                <h2>Searching the most delicious dish in your area...</h2>
-            </div>
-        </section>
-        
-    </div>
-    <!-- skeleton loader end -->
-    
+export function home() {
+    return `
     <!-- home section start -->
-    <section id="home" class="home-wrapper home2 section-b-space overflow-hidden">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-lg-7 col-12">
-                    <h2>Discover restaurants that food deliver near you</h2>
-                    <div class="search-section">
-                        <form class="auth-form search-head" target="_blank">
-                            <div class="form-group">
-                                <div class="form-input mb-0">
-                                    <input type="search" class="form-control search" id="inputusername"
-                                        placeholder="Search for Restaurant">
-                                    <i class="ri-search-line search-icon"></i>
+    <section class="pt-4 home3">
+        <div class="custom-container">
+            <div class="position-relative">
+                <img src="assets/images/home-bg2.png" class="img-fluid bg-home-img" alt="">
+                <div class="home-content">
+                    <div class="row w-100 h-100">
+                        <div class="col-sm-6 col-12">
+                            <div class="home-left-content">
+                                <label>50% off on First delivery</label>
+                                <h2>Discover restaurants that food deliver near you</h2>
+                                <p>Foodie Store bring you a new variety of delicious meals daily.
+                                Order online, explore our changing menu, and enjoy freshly prepared dishes delivered right to your doorstep.
+                                </p>
+                                <div class="search-section">
+                                    <a class="btn theme-btn mt-0" href="#" role="button">Order Now</a>
                                 </div>
                             </div>
-                        </form>
-                        <a class="btn theme-btn mt-0" href="#" role="button">Search</a>
+                        </div>
+                        <div class="col-sm-6 d-sm-block d-none">
+                            <div class="home-right position-relative">
+                                <img src="assets/images/mobile.png" class="img-fluid base-phone" alt="">
+                                <div class="animated-img">
+                                    <div class="food1">
+                                        <img src="assets/images/food1.png" data-aos="fade-down" data-aos-easing="linear" data-aos-anchor-placement="top-center" data-aos-duration="1200" class="img-fluid aos-init aos-animate" alt="">
+                                    </div>
+                                    <div class="food2">
+                                        <img src="assets/images/food2.png" data-aos-duration="1200" data-aos="fade-down" data-aos-anchor-placement="bottom-center" class="img-fluid aos-init aos-animate" alt="">
+                                    </div>
+                                    <div class="food3">
+                                        <img src="assets/images/food3.png" data-aos="fade-down" data-aos-easing="linear" data-aos-anchor-placement="bottom-bottom" data-aos-duration="1000" class="img-fluid aos-init aos-animate" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-5 position-relative">
-                    <img src="assets/images/home-vector.png" class="img-fluid right-vector" alt="right-vector">
                 </div>
             </div>
         </div>
@@ -52,295 +53,8 @@ export function home(){
             </div>
             <div class="tab-content restaurant-content" id="TabContent">
                 <div class="tab-pane fade show active" id="delivery-tab">
-                    <div class="row g-lg-4 g-3">
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="product-img-top w-100 bg-img" src="assets/images/product/vp-9.png"
-                                            alt="vp1">
-                                    </a>
-                                    <div class="offers">
-                                        <h6>upto $2</h6>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>50% OFF</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Poultry Palace</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.9
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        Chicken quesadilla, avocado....
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">New Jsercy</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 3.2 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 25 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="seller-badge">
-                                    <img class="img-fluid badge" src="assets/images/svg/medal-fill.svg" alt="medal">
-                                    <h6>Exclusive</h6>
-                                </div>
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="vertical-product-img-top w-100 bg-img"
-                                            src="assets/images/product/vp-10.png" alt="vp-2">
-                                    </a>
-                                    <div class="offers">
-                                        <h6>upto $2</h6>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>50% OFF</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Ribeye Junction</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.2
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        Chicken quesadilla, avocado....
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">California</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 1 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 10 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="product-img-top w-100 bg-img" src="assets/images/product/vp-11.png"
-                                            alt="vp3">
-                                    </a>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">
-                                                The Grill Master's Cafe
-                                            </h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>4.3
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">Bread, Eggs, Butter, Fries...</h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">New York</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 5 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 40 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="product-img-top w-100 bg-img" src="assets/images/product/vp-12.png"
-                                            alt="vp-4">
-                                    </a>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Cozy Cuppa Cafe</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.6
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        cheesecake, waffles, Cakes,...
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">Dallas</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 4 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 30 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="product-img-top w-100 bg-img" src="assets/images/product/vp-13.png"
-                                            alt="vp-5">
-                                    </a>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Mocha Magic Cafe</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.2
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">Chinese, Momos, Dumplings,...</h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">Seattle</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 1 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 8 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="product-img-top w-100 bg-img" src="assets/images/product/vp-14.png"
-                                            alt="vp16">
-                                    </a>
-                                    <div class="offers">
-                                        <h6>upto $2</h6>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>50% OFF</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Latte Lounge</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.6
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        Chicken fingers, Chicken goujons,....
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">Atlanta</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 3 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 25 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="seller-badge exclusive-badge">
-                                    <img class="img-fluid badge" src="assets/images/svg/crown.svg" alt="medal">
-                                    <h6>Best seller</h6>
-                                </div>
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="vertical-product-img-top w-100 bg-img"
-                                            src="assets/images/product/vp-15.png" alt="vp-7">
-                                    </a>
-                                    <div class="offers">
-                                        <h6>upto $2</h6>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>50% OFF</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">The Burger Barn</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.8
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        Burger, Garlic Bread, Sandwich....
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">Chicago</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 2.4 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 20 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-sm-6">
-                            <div class="vertical-product-box">
-                                <div class="seller-badge new-badge">
-                                    <img class="img-fluid badge" src="assets/images/svg/star-white.svg" alt="medal">
-                                    <h6>Newest</h6>
-                                </div>
-                                <div class="vertical-product-box-img">
-                                    <a href="menu-listing.html">
-                                        <img class="vertical-product-img-top w-100 bg-img"
-                                            src="assets/images/product/vp-16.png" alt="vp-8">
-                                    </a>
-                                    <div class="offers">
-                                        <h6>upto $2</h6>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>50% OFF</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vertical-product-body">
-                                    <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                                        <a href="menu-listing.html">
-                                            <h4 class="vertical-product-title">Wing Master</h4>
-                                        </a>
-                                        <h6 class="rating-star">
-                                            <span class="star"><i class="ri-star-s-fill"></i></span>3.2
-                                        </h6>
-                                    </div>
-                                    <h5 class="product-items">
-                                        Chicken quesadilla, avocado....
-                                    </h5>
-                                    <div
-                                        class="location-distance d-flex align-items-center justify-content-between pt-sm-3 pt-2">
-                                        <h5 class="place">New York</h5>
-                                        <ul class="distance">
-                                            <li><i class="ri-map-pin-fill icon"></i> 1.8 km</li>
-                                            <li><i class="ri-time-fill icon"></i> 12 min</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row g-lg-4 g-3" id="dishes-container">
+                        <!-- Dishes will be loaded here dynamically -->
                     </div>
                 </div>
             </div>
@@ -348,31 +62,26 @@ export function home(){
     </section>
     <!-- featured Restaurants section end -->
 
+    <!-- What is Foodie Store section -->
     <section class="section-b-space">
         <div class="container">
             <div class="row g-3">
                 <div class="col-xl-7">
                     <div class="title animated-title">
                         <div class="loader-line"></div>
-                        <h2 class="mb-sm-3 mb-2">What is ZOMO?</h2>
+                        <h2 class="mb-sm-3 mb-2">Who We Are?</h2>
                         <p class="content-color">
-                            Welcome to our online order website! Here, you can browse our
-                            wide selection of products and place orders from the comfort of
-                            your own home. Whether you're looking for groceries,
-                            electronics, or gifts, we have you covered. With easy
-                            navigation, secure payment options, and fast delivery.
+                            Foodie Store is your go-to online food destination, 
+                            offering a unique menu that changes every day.
+                            We focus on fresh ingredients, great taste, and convenience so you can enjoy different flavors without repeating the same meals.
                         </p>
 
                         <p class="pt-2 content-color">
-                            we strive to make your online shopping experience as seamless as
-                            possible. Explore our website today and discover the convenience
-                            of ordering online!
+                            From comfort classics to modern flavors, 
+                            our rotating menu ensures there’s always something new to try, 
+                            prepared with care and delivered with love.
                         </p>
 
-                        <p class="pt-2 content-color">
-                            So why wait? Start shopping on our online order website today
-                            and experience the ultimate convenience of online shopping!"
-                        </p>
                     </div>
                     <div class="about-image-part">
                         <div class="row g-sm-3 g-2">
@@ -408,7 +117,7 @@ export function home(){
         </div>
     </section>
 
-    <!-- service section starts -->
+    <!-- Services section start -->
     <section class="service-box-section section-b-space">
         <div class="container">
             <div class="row g-3">
@@ -450,7 +159,7 @@ export function home(){
             </div>
         </div>
     </section>
-    <!-- service section end -->
+    <!-- Services section end -->
 
     <!-- App section start -->
     <section class="app-section">
@@ -460,7 +169,7 @@ export function home(){
                     <img class="img-fluid phone" src="assets/images/service-phone.png" alt="app-phone">
                 </div>
                 <div class="app-content">
-                    <h2>Zomo App : Online &amp; Mobile Ordering</h2>
+                    <h2>Foodie Store App : Online &amp; Mobile Ordering</h2>
                     <h5>
                         Get the app for free and place takeout orders online whenever you
                         want.
@@ -478,5 +187,48 @@ export function home(){
         </div>
     </section>
     <!-- App section end -->
-     `
+    `;
+}
+
+// Function to load dishes dynamically
+export async function loadDishes() {
+    const container = document.getElementById('dishes-container');
+    if (!container) return;
+
+    try {
+        const res = await fetch('http://localhost:5000/api/fdishes');
+        const data = await res.json();
+        const dishes = data.dishes || [];
+                console.log('Today:', data.today);
+
+        if (dishes.length === 0) {
+            container.innerHTML = `<p>No dishes available today.</p>`;
+            return;
+        }
+
+        container.innerHTML = dishes.map(dish => `
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+                <div class="vertical-product-box">
+                    <div class="vertical-product-box-img">
+                        <a href="/menu-listing" data-link>
+                            <img class="vertical-product-img-top w-100 bg-img" src="${dish.img}" alt="${dish.title}">
+                        </a>
+                    </div>
+                    <div class="vertical-product-body">
+                        <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
+                            <a href="/menu-listing" data-link>
+                                <h4 class="vertical-product-title">${dish.title}</h4>
+                            </a>
+                            <span>Price: €${dish.price}</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+    } catch (err) {
+        console.error('Error loading dishes:', err);
+        container.innerHTML = `<p>Failed to load dishes.</p>`;
+    }
 }

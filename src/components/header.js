@@ -1,6 +1,14 @@
 export function renderHeader() {
     return `
-    <header>
+    <marquee 
+    class="bg-dark py-1 text-center"
+    behavior="scroll"
+    direction="right"
+    scrollamount="5"
+>
+    <span class="white">Free Delivery on orders over $50!</span>
+</marquee>
+    <header class="header-light">
         <div class="container">
             <nav class="navbar navbar-expand-lg p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#offcanvasNavbar">
@@ -8,8 +16,8 @@ export function renderHeader() {
                         <i class="ri-menu-line"></i>
                     </span>
                 </button>
-                <a href="/" data-link>
-                    <img class="img-fluid logo" src="assets/images/svg/logo.svg" alt="logo">
+                <a href="/" class="text-black" data-link>
+                    <b> Foodie Web</b>
                 </a>
                 <a target="_blank" href="#!" data-bs-toggle="modal" data-bs-target="#location" class="btn btn-sm theme-btn location-btn mt-0 ms-3 d-flex align-content-center gap-1">
                     <i class="ri-map-pin-line"></i> Location
@@ -18,7 +26,7 @@ export function renderHeader() {
                     <div class="dropdown-button">
                         <div class="cart-button">
                             <span>5</span>
-                            <i class="ri-shopping-cart-line text-white cart-bag"></i>
+                            <i class="ri-shopping-cart-line cart-bag"></i>
                         </div>
                         <div class="onhover-box">
                             <ul class="cart-list">

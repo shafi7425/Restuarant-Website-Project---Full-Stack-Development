@@ -514,6 +514,14 @@
   --theme-color2: 97, 56, 156;
 }
 
+.white{
+  color: #fff;
+}
+
+.black{
+  color: #000;
+}
+
 /* base scss files */
 /*=====================
   2.1  Reset Style start
@@ -1232,13 +1240,17 @@ li {
   position: relative;
 }
 .categories-section .category-top {
-  background-color: rgba(var(--white), 1);
+  background: linear-gradient(to right, rgba(var(--theme-color), 1), rgba(var(--theme-color2), 1));
   z-index: 1;
-  padding: calc(15px + 5 * (100vw - 320px) / 1600);
+  padding: calc(0px + 5 * (100vw - 320px) / 1600);
   border-radius: 13px;
   -webkit-box-shadow: 0 15px 60px -20px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 15px 60px -20px rgba(0, 0, 0, 0.1);
-  margin-top: calc(-45px + -25 * (100vw - 320px) / 1600);
+  box-shadow: 0 15px 60px -20px rgba(0, 0, 0, 0.1);
+  margin-top: calc(0px + -30 * (100vw - 320px) / 1600);
+}
+.categories-section .category-top marquee{
+    color: #fff;
+    font-weight: 600;
 }
 .categories-section .item-2 {
   position: absolute;
@@ -4702,7 +4714,24 @@ li {
   width: calc(85px + 110 * (100vw - 320px) / 1600);
   opacity: 0.5;
 }
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+}
 
+.marquee span {
+    display: inline-block;
+    animation: scroll 10s linear infinite;
+}
+
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
 .faq-title {
   text-align: center;
   margin-bottom: calc(15px + 15 * (100vw - 320px) / 1600);
@@ -5795,7 +5824,7 @@ header.header2 .navbar .nav-option .profile-part h6 {
 .navbar .navbar-nav .nav-item .nav-link {
   color: #fff;
   font-weight: 400;
-  font-size: calc(14px + 6 * (100vw - 320px) / 1600);
+  font-size: calc(14px + 4 * (100vw - 320px) / 1600);
   padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8857,7 +8886,7 @@ header.header2 .navbar .nav-option .profile-part h6 {
   }
 }
 .home-wrapper.home2 {
-  padding: calc(45px + 35 * (100vw - 320px) / 1600) 0 calc(45px + 25 * (100vw - 320px) / 1600) !important;
+  padding: calc(45px + 35 * (100vw - 320px) / 1600) 0 calc(0px + 25 * (100vw - 320px) / 1600) !important;
 }
 .home-wrapper.home2 .row {
   padding-block: calc(40px + 100 * (100vw - 320px) / 1600);
@@ -8890,9 +8919,8 @@ header.header2 .navbar .nav-option .profile-part h6 {
   }
 }
 .home-wrapper h1 {
-  text-align: center;
-  font-style: italic;
-  font-size: calc(40px + 46 * (100vw - 320px) / 1600);
+  text-align: left;
+  font-size: calc(28px + 28 * (100vw - 320px) / 1600);
   line-height: 1;
   letter-spacing: 1.5px;
   margin-top: calc(0px + 71 * (100vw - 320px) / 1600);
@@ -8902,6 +8930,7 @@ header.header2 .navbar .nav-option .profile-part h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 100%;
+  text-transform: capitalize;
   display: inline-block;
   letter-spacing: 0.06em;
   margin-top: -11px;
@@ -8913,6 +8942,10 @@ header.header2 .navbar .nav-option .profile-part h6 {
   line-height: 1.2;
   letter-spacing: 0.6px;
   color: #fff;
+}
+.home-wrapper p{
+  color: #fff;
+  text-align: left;
 }
 .home-wrapper .search-section {
   position: relative;
