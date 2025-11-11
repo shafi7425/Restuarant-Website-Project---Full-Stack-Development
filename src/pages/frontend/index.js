@@ -210,13 +210,13 @@ export async function loadDishes() {
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="vertical-product-box">
                     <div class="vertical-product-box-img">
-                        <a href="/menu-listing" data-link>
+                        <a href="/dish?id=${dish._id}" data-link>
                             <img class="vertical-product-img-top w-100 bg-img" src="${dish.img}" alt="${dish.title}">
                         </a>
                     </div>
                     <div class="vertical-product-body">
                         <div class="d-flex align-items-center justify-content-between mt-sm-3 mt-2">
-                            <a href="/menu-listing" data-link>
+                            <a href="/dish?id=${dish._id}" data-link>
                                 <h4 class="vertical-product-title">${dish.title}</h4>
                             </a>
                             <span>Price: €${dish.price}</span>

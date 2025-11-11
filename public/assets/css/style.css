@@ -4812,6 +4812,9 @@ li {
   background: #e1e1e1;
   min-height: calc(16px + 6 * (100vw - 320px) / 1600);
 }
+.min-height{
+  min-height: 200px;
+}
 .skeleton-loader .home-wrapper {
   background-image: none;
   background-color: #232220;
@@ -9646,7 +9649,6 @@ header.header2 .navbar .nav-option .profile-part h6 {
 @media (max-width: 991px) {
   .app-section {
     background-image: url(../images/background/sm-app-bg.jpg);
-    padding-top: 0;
   }
 }
 .app-section .app-img .phone {

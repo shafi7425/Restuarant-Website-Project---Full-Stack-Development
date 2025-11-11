@@ -7,7 +7,7 @@ export function about() {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-star">
                     <li class="breadcrumb-item">
-                        <a href="index-2.html"><i class="ri-home-line"></i>Home</a>
+                        <a href="/"><i class="ri-home-line"></i>Home</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">About us</li>
                 </ol>

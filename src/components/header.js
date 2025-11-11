@@ -167,6 +167,9 @@ export function renderHeader() {
                              <li class="nav-item">
                                 <a class="nav-link" href="/blogs" data-link>Blogs</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cart" data-link>Cart</a>
+                            </li>
                              <li class="nav-item">
                                 <a class="nav-link" href="/contact-us" data-link>Contact Us</a>
                             </li>

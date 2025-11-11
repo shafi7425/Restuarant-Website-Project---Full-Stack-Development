@@ -2,17 +2,37 @@ import { render as loginPage, init as loginInit } from './pages/auth/login.js';
 import { render as registerPage, init as registerInit } from './pages/auth/register.js';
 import { about } from './pages/frontend/about.js';
 import { blogs } from './pages/frontend/blogs.js';
+import { cartInit, cartPage } from './pages/frontend/cart.js';
+import { checkoutInit, checkoutPage } from './pages/frontend/checkout.js';
 import { contact } from './pages/frontend/contact-us.js';
 import { home, loadDishes  } from './pages/frontend/index.js';
+import { dishPage, dishInit } from './pages/frontend/single-product.js';
+import { dashboard, dashboardInit } from './pages/dashboard/dashboard.js';
 import { setMeta } from './utils.js';
+import { isLoggedIn, getUser } from './helpers/auth.js';
+import { thankyou } from './pages/frontend/thank-you.js';
 
 export function router(path) {
     const app = document.getElementById('app');
 
-    switch(path) {
-        case '/login':
+    switch(true) {
+        // ✅ Login Page
+        case path === '/login':
+            if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role === "admin") {
+                    goTo("/dashboard");
+                    return;
+                } else if (JSON.parse(localStorage.getItem("cart"))?.length) {
+                    goTo("/checkout");
+                    return;
+                } else {
+                    goTo("/");
+                    return;
+                }
+            }
             app.innerHTML = loginPage();
-            loginInit(); // attach event listeners
+            loginInit();
             setMeta({
                 title: 'Login - Zomo',
                 description: 'Login to your Zomo account.',
@@ -20,9 +40,23 @@ export function router(path) {
             });
             break;
 
-        case '/register':
+        // ✅ Register Page
+        case path === '/register':
+            if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role === "admin") {
+                    goTo("/dashboard");
+                    return;
+                } else if (JSON.parse(localStorage.getItem("cart"))?.length) {
+                    goTo("/checkout");
+                    return;
+                } else {
+                    goTo("/");
+                    return;
+                }
+            }
             app.innerHTML = registerPage();
-            registerInit(); // attach event listeners
+            registerInit();
             setMeta({
                 title: 'Register - Zomo',
                 description: 'Create a new Zomo account.',
@@ -30,49 +64,116 @@ export function router(path) {
             });
             break;
 
-        case '/about-us':
+        // ✅ About Us
+        case path === '/about-us':
             app.innerHTML = about();
             setMeta({
                 title: 'About Us - Zomo',
-                description: 'Create a new Zomo account.',
-                keywords: 'register, signup, zomo'
+                description: 'Learn more about Zomo.',
+                keywords: 'about, zomo'
             });
-            break;  
-        
-        case '/blogs':
-        app.innerHTML = blogs();
-        setMeta({
-            title: 'Blogs - Zomo',
-            description: 'Create a new Zomo account.',
-            keywords: 'register, signup, zomo'
-        });
-        break;  
-        
-        case '/contact-us':
-        app.innerHTML = contact();
-        setMeta({
-            title: 'Contact Us - Zomo',
-            description: 'Create a new Zomo account.',
-            keywords: 'register, signup, zomo'
-        });
-        break;  
+            break;
 
-        case '/':
-            app.innerHTML = home();  // render home page
-            loadDishes();            // dynamically render featured restaurants
+        // ✅ Blogs
+        case path === '/blogs':
+            app.innerHTML = blogs();
+            setMeta({
+                title: 'Blogs - Zomo',
+                description: 'Read the latest Zomo blogs.',
+                keywords: 'blogs, zomo'
+            });
+            break;
+
+        // ✅ Contact Us
+        case path === '/contact-us':
+            app.innerHTML = contact();
+            setMeta({
+                title: 'Contact Us - Zomo',
+                description: 'Get in touch with Zomo.',
+                keywords: 'contact, zomo'
+            });
+            break;
+
+        // ✅ Single Dish
+        case path.startsWith('/dish'):
+            app.innerHTML = dishPage();
+            dishInit();
+            setMeta({
+                title: 'Single Product - Zomo',
+                description: 'View details of this dish.',
+                keywords: 'dish, zomo, food'
+            });
+            break;
+
+        // ✅ Cart Page
+        case path === '/cart':
+            app.innerHTML = cartPage();
+            cartInit();
+            setMeta({
+                title: 'Cart - Zomo',
+                description: 'View your shopping cart.',
+                keywords: 'cart, zomo, order'
+            });
+            break;
+
+        // ✅ Checkout Page
+        case path === '/checkout':
+            if (!isLoggedIn()) {
+                alert("You must login to access checkout.");
+                goTo("/login");
+                return;
+            }
+            app.innerHTML = checkoutPage();
+            checkoutInit();
+            setMeta({
+                title: 'Checkout - Zomo',
+                description: 'Complete your order.',
+                keywords: 'checkout, zomo, order'
+            });
+            break;
+
+        // ✅ Thank You Page
+        case path.startsWith('/thank-you'):
+            app.innerHTML = thankyou(); 
+            setMeta({
+                title: 'Thank You - Zomo',
+                description: 'Order placed successfully.',
+                keywords: 'order, thank you, zomo'
+            });
+            break;
+
+        // ✅ Dashboard
+        case path === '/dashboard':
+            if (!isLoggedIn()) {
+                alert("You must login to access dashboard.");
+                goTo("/login");
+                return;
+            }
+            app.innerHTML = dashboard();
+            dashboardInit();
+            setMeta({
+                title: 'Dashboard - Zomo',
+                description: 'Admin Dashboard.',
+                keywords: 'dashboard, admin, zomo'
+            });
+            break;
+
+        // ✅ Home Page
+        case path === '/':
+        default:
+            app.innerHTML = home();
+            loadDishes();
             setMeta({
                 title: 'Home - Zomo',
                 description: 'Zomo online food ordering platform.',
                 keywords: 'zomo, food, delivery'
             });
             break;
-
-        default:
-            app.innerHTML = home();
-            setMeta({
-                title: 'Home - Zomo',
-                description: 'Zomo online food ordering platform.',
-                keywords: 'zomo, food, delivery'
-            });
     }
+}
+
+// ✅ Helper SPA redirect
+function goTo(path) {
+    history.pushState(null, null, path);
+    import('./router.js').then(m => m.router(path));
 }
