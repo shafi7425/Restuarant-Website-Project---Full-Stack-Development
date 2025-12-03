@@ -746,7 +746,7 @@ body.noice-background::before {
 
 h1 {
   font-weight: 700;
-  font-size: calc(25px + 55 * (100vw - 320px) / 1600);
+  font-size: calc(25px + 10 * (100vw - 320px) / 1600);
   margin-bottom: 0;
 }
 
