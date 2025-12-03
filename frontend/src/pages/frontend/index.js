@@ -1,5 +1,6 @@
 // pages/frontend/index.js
 
+
 export function home() {
     return `
     <!-- home section start -->
