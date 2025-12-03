@@ -13,6 +13,11 @@ import { isLoggedIn, getUser } from './helpers/auth.js';
 import { thankyou } from './pages/frontend/thank-you.js';
 import { API_BASE } from '../public/assets/js/api.js';
 import { blogSingle, blogSingleInit } from './pages/frontend/single-blog.js';
+import { ordersPage } from './pages/dashboard/orders.js';
+import { dishesPage } from './pages/dashboard/dishes.js';
+import { dishcategoriesPage } from './pages/dashboard/dish-categories.js';
+import { blogsPage } from './pages/dashboard/blogs.js';
+
 
 
 export function router(path) {
@@ -24,7 +29,7 @@ export function router(path) {
             if (isLoggedIn()) {
                 const user = getUser();
                 if (user.role === "admin") {
-                    goTo("/dashboard");
+                    goTo("/admin/dashboard");
                     return;
                 } else if (JSON.parse(localStorage.getItem("cart"))?.length) {
                     goTo("/checkout");
@@ -48,7 +53,7 @@ export function router(path) {
             if (isLoggedIn()) {
                 const user = getUser();
                 if (user.role === "admin") {
-                    goTo("/dashboard");
+                    goTo("/admin/dashboard");
                     return;
                 } else if (JSON.parse(localStorage.getItem("cart"))?.length) {
                     goTo("/checkout");
@@ -172,20 +177,77 @@ export function router(path) {
             });
             break;
 
-
         // ✅ Dashboard
-        case path === '/dashboard':
-            if (!isLoggedIn()) {
-                alert("You must login to access dashboard.");
-                goTo("/login");
-                return;
-            }
+        case path === '/admin/dashboard':
             app.innerHTML = dashboard();
             dashboardInit();
             setMeta({
                 title: 'Dashboard - Zomo',
-                description: 'Admin Dashboard.',
-                keywords: 'dashboard, admin, zomo'
+                description: 'Your account overview.',
+                keywords: 'dashboard, zomo, account'
+            });
+            break;
+           
+        // ✅ Orders
+        case path === '/admin/orders':
+            app.innerHTML = ordersPage();
+            
+            setMeta({
+                title: 'Orders - Zomo',
+                description: 'Your account overview.',
+                keywords: 'dashboard, zomo, account'
+            });
+            break;
+
+        // ✅ Dishes
+        case path === '/admin/dishes':
+            if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role !== "admin") {
+                    goTo("/admin/dashboard");
+                    return
+                }
+            }
+            app.innerHTML = dishesPage();
+            
+            setMeta({
+                title: 'Dishes - Zomo',
+                description: 'Your account overview.',
+                keywords: 'dashboard, zomo, account'
+            });
+            break;
+            // ✅ Dishes
+        case path === '/admin/dishcategories':
+             if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role !== "admin") {
+                    goTo("/admin/dashboard");
+                    return
+                }
+            }
+            app.innerHTML = dishcategoriesPage();
+            
+            setMeta({
+                title: 'Dish Categories - Zomo',
+                description: 'Your account overview.',
+                keywords: 'dashboard, zomo, account'
+            });
+            break;
+        
+        case path === '/admin/blogs':
+             if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role !== "admin") {
+                    goTo("/admin/dashboard");
+                    return
+                }
+            }
+            blogsPage();
+            
+            setMeta({
+                title: 'Blogs - Zomo',
+                description: 'Your account overview.',
+                keywords: 'dashboard, zomo, account'
             });
             break;
 
