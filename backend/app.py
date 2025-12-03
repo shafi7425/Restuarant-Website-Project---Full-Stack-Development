@@ -25,9 +25,9 @@ import cloudinary.api
 # app = Flask(__name__)
 # CORS(app, resources={r"/*": {"origins": ["http://localhost:5173", "http://127.0.0.1:5173"]}})
 app = Flask(__name__, static_folder="build", static_url_path="")
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/foodieweb")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://foodieweb:FoodieWeb1!@cluster0.cqqlapf.mongodb.net/FoodieWeb?retryWrites=true&w=majority")
 SECRET_KEY = os.getenv("SECRET_KEY", "change_me_in_prod")
 
 app.config["MONGO_URI"] = MONGO_URI
@@ -199,55 +199,131 @@ def login():
             "role": user.get("role", "user")
         }
     }), 200
+    
+@app.route("/api/logout", methods=["POST"])
+def logout():
+    return jsonify({"message": "Logged out"}), 200
+
+
+from bson import ObjectId
 
 @app.route("/api/dashboard-stats", methods=["GET"])
+@token_required
 def dashboard_stats():
-    # Total users
-    total_users = mongo.db.users.count_documents({})
 
-    # Active users (example: users with 'is_active': True)
-    active_users = mongo.db.users.count_documents({"status": "active"})
+    user_id = request.user["user_id"]
+    user_role = request.user.get("role", "user")
 
-    # Today's orders
-    today = datetime.now().date()
-    today_orders = mongo.db.orders.count_documents({
-        "created_at": {"$gte": datetime(today.year, today.month, today.day)}
-    })
+    today = datetime.utcnow().date()
 
-    # Pending orders
-    pending_orders = mongo.db.orders.count_documents({"status": "pending"})
+    # ---------------------------
+    # ADMIN DASHBOARD
+    # ---------------------------
+    if user_role == "admin":
 
-    # This month's orders and sales
-    month_orders = mongo.db.orders.count_documents({
-        "created_at": {"$gte": datetime(today.year, today.month, 1)}
-    })
-    month_sales_cursor = mongo.db.orders.aggregate([
-        {"$match": {"created_at": {"$gte": datetime(today.year, today.month, 1)}}},
-        {"$group": {"_id": None, "total": {"$sum": "$total"}}}
-    ])
-    month_sales = next(month_sales_cursor, {}).get("total", 0)
+        total_users = mongo.db.users.count_documents({})
+        active_users = mongo.db.users.count_documents({"status": "active"})
 
-    # Today's revenue
-    today_revenue_cursor = mongo.db.orders.aggregate([
-        {"$match": {"created_at": {"$gte": datetime(today.year, today.month, today.day)}}},
-        {"$group": {"_id": None, "total": {"$sum": "$total"}}}
-    ])
-    today_revenue = next(today_revenue_cursor, {}).get("total", 0)
+        today_orders = mongo.db.orders.count_documents({
+            "created_at": {"$gte": datetime(today.year, today.month, today.day)}
+        })
 
-    response = {
-        "totalUsers": total_users,
-        "activeUsers": active_users,
-        "todayOrders": today_orders,
-        "pendingOrders": pending_orders,
-        "monthOrders": month_orders,
-        "monthSales": month_sales,
-        "todayRevenue": today_revenue,
-    }
+        pending_orders = mongo.db.orders.count_documents({"status": "pending"})
 
-    # ✅ Console log all stats
-    print("Dashboard Stats Response:", response)
+        month_orders = mongo.db.orders.count_documents({
+            "created_at": {"$gte": datetime(today.year, today.month, 1)}
+        })
+
+        month_sales_cursor = mongo.db.orders.aggregate([
+            {"$match": {"created_at": {"$gte": datetime(today.year, today.month, 1)}}},
+            {"$group": {"_id": None, "total": {"$sum": "$total"}}}
+        ])
+        month_sales = next(month_sales_cursor, {}).get("total", 0)
+
+        today_revenue_cursor = mongo.db.orders.aggregate([
+            {"$match": {"created_at": {"$gte": datetime(today.year, today.month, today.day)}}},
+            {"$group": {"_id": None, "total": {"$sum": "$total"}}}
+        ])
+        today_revenue = next(today_revenue_cursor, {}).get("total", 0)
+
+        response = {
+            "role": "admin",
+            "totalUsers": total_users,
+            "activeUsers": active_users,
+            "todayOrders": today_orders,
+            "pendingOrders": pending_orders,
+            "monthOrders": month_orders,
+            "monthSales": month_sales,
+            "todayRevenue": today_revenue,
+        }
+
+    # ---------------------------
+    # USER DASHBOARD
+    # ---------------------------
+    else:
+        # Total orders placed by the user
+        total_orders = mongo.db.orders.count_documents({"user_id": user_id})
+
+        # Pending orders
+        pending_orders = mongo.db.orders.count_documents({
+            "user_id": user_id,
+            "status": "pending"
+        })
+
+        # Total spent
+        total_spent_cursor = mongo.db.orders.aggregate([
+            {"$match": {"user_id": user_id}},
+            {"$group": {"_id": None, "total": {"$sum": "$total"}}}
+        ])
+        total_spent = next(total_spent_cursor, {}).get("total", 0)
+
+        print("Total spent for user:", total_spent)
+        response = {
+            "role": "user",
+            "totalOrders": total_orders,
+            "pendingOrders": pending_orders,
+            "totalSpent": total_spent
+        }
 
     return jsonify(response), 200
+
+
+
+@app.route("/api/dashboard-analytics", methods=["GET"])
+def dashboard_analytics():
+    
+    today = datetime.now()
+    last_30_days = [(today - timedelta(days=i)).strftime("%d %b") for i in range(29, -1, -1)]
+
+    sales = []
+    orders = []
+    new_users = []
+
+    for i in range(29, -1, -1):
+        date_start = datetime(today.year, today.month, today.day) - timedelta(days=i)
+
+        # Sales
+        sales_cursor = mongo.db.orders.aggregate([
+            {"$match": {"created_at": {"$gte": date_start}}},
+            {"$group": {"_id": None, "total": {"$sum": "$total"}}}
+        ])
+        sales.append(next(sales_cursor, {}).get("total", 0))
+
+        # Orders
+        order_count = mongo.db.orders.count_documents({"created_at": {"$gte": date_start}})
+        orders.append(order_count)
+
+        # New Users
+        user_count = mongo.db.users.count_documents({"created_at": {"$gte": date_start}})
+        new_users.append(user_count)
+
+    return jsonify({
+        "last30Days": last_30_days,
+        "sales": sales,
+        "orders": orders,
+        "newUsers": new_users
+    }), 200
+
 
 
 # ---------------------------
@@ -338,6 +414,151 @@ def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
 
+# --- GET list with pagination/search (public)
+@app.route("/api/dishes/categories", methods=["GET"])
+def list_dish_categories():
+    try:
+        # query params
+        page = int(request.args.get("page", 1))
+        limit = int(request.args.get("limit", 20))
+        q = request.args.get("q", "").strip()
+        include_deleted = request.args.get("include_deleted", "false").lower() == "true"
+
+        query = {}
+        if q:
+            # case-insensitive name search
+            query["name"] = {"$regex": q, "$options": "i"}
+
+        if not include_deleted:
+            query["deleted_at"] = None
+
+        total = mongo.db.dish_categories.count_documents(query)
+        skip = (page - 1) * limit
+        cursor = mongo.db.dish_categories.find(query).sort("created_at", -1).skip(skip).limit(limit)
+
+        categories = []
+        for doc in cursor:
+            doc["_id"] = str(doc["_id"])
+            # Convert datetimes to ISO string for frontend convenience
+            if doc.get("created_at"):
+                doc["created_at"] = {"$date": doc["created_at"].isoformat()}
+            if doc.get("updated_at"):
+                doc["updated_at"] = {"$date": doc["updated_at"].isoformat()}
+            if doc.get("deleted_at"):
+                # keep deleted_at as ISO string if present
+                doc["deleted_at"] = {"$date": doc["deleted_at"].isoformat()}
+            categories.append(doc)
+
+        pages = (total + limit - 1) // limit
+        return jsonify({
+            "categories": categories,
+            "page": page,
+            "limit": limit,
+            "total": total,
+            "pages": pages
+        }), 200
+
+    except Exception as e:
+        print("List categories error:", e)
+        return jsonify({"error": "Server error"}), 500
+
+# --- GET single category
+@app.route("/api/dishes/categories/<cat_id>", methods=["GET"])
+def get_dish_category(cat_id):
+    try:
+        doc = mongo.db.dish_categories.find_one({"_id": ObjectId(cat_id)})
+        if not doc:
+            return jsonify({"error": "Category not found"}), 404
+        doc["_id"] = str(doc["_id"])
+        if doc.get("created_at"):
+            doc["created_at"] = {"$date": doc["created_at"].isoformat()}
+        if doc.get("updated_at"):
+            doc["updated_at"] = {"$date": doc["updated_at"].isoformat()}
+        if doc.get("deleted_at"):
+            doc["deleted_at"] = {"$date": doc["deleted_at"].isoformat()}
+        return jsonify({"category": doc}), 200
+    except Exception as e:
+        print("Get category error:", e)
+        return jsonify({"error": "Invalid category id"}), 400
+
+# --- POST create category (protected)
+@app.route("/api/dishes/categories", methods=["POST"])
+@token_required
+def create_dish_category():
+    try:
+        data = request.json or {}
+        name = (data.get("name") or "").strip()
+        if not name:
+            return jsonify({"error": "Name is required"}), 400
+
+        # create slug (basic)
+        slug = name.lower().replace(" ", "-")
+
+        now = datetime.utcnow()
+        doc = {
+            "name": name,
+            "slug": slug,
+            "created_at": now,
+            "updated_at": None,
+            "deleted_at": None
+        }
+
+        result = mongo.db.dish_categories.insert_one(doc)
+        doc["_id"] = str(result.inserted_id)
+        doc["created_at"] = {"$date": now.isoformat()}
+        return jsonify({"message": "Category created", "category": doc}), 201
+    except Exception as e:
+        print("Create category error:", e)
+        return jsonify({"error": "Server error"}), 500
+
+# --- PUT update category (protected)
+@app.route("/api/dishes/categories/<cat_id>", methods=["PUT"])
+@token_required
+def update_dish_category(cat_id):
+    try:
+        data = request.json or {}
+        name = (data.get("name") or "").strip()
+        if not name:
+            return jsonify({"error": "Name is required"}), 400
+
+        if not data.get("slug"):
+            slug = name.lower().replace(" ", "-")
+        else:
+            slug = data.get("slug").strip()
+            
+        now = datetime.utcnow()
+
+        result = mongo.db.dish_categories.update_one(
+            {"_id": ObjectId(cat_id)},
+            {"$set": {"name": name, "slug": slug, "updated_at": now}}
+        )
+
+        if result.matched_count == 0:
+            return jsonify({"error": "Category not found"}), 404
+
+        return jsonify({"message": "Category updated"}), 200
+    except Exception as e:
+        print("Update category error:", e)
+        return jsonify({"error": "Server error"}), 500
+
+# --- DELETE (soft delete) (protected)
+@app.route("/api/dishes/categories/<cat_id>", methods=["DELETE"])
+@token_required
+def soft_delete_dish_category(cat_id):
+    try:
+        now = datetime.utcnow()
+        result = mongo.db.dish_categories.update_one(
+            {"_id": ObjectId(cat_id)},
+            {"$set": {"deleted_at": now}}
+        )
+        if result.matched_count == 0:
+            return jsonify({"error": "Category not found"}), 404
+        return jsonify({"message": "Category deleted"}), 200
+    except Exception as e:
+        print("Delete category error:", e)
+        return jsonify({"error": "Server error"}), 500
+
+
 # ---------------------------
 # Dish Routes with Audit + Soft Delete
 # ---------------------------
@@ -348,12 +569,12 @@ def create_dish():
     title = request.form.get("title")
     price = request.form.get("price")
     day = request.form.get("day")
+    dish_category = request.form.get("category_id")
+    print("Dish Category ID:", dish_category)
     img_file = request.files.get("img")
-    
-    print(request.user["user_id"])
 
-    if not title or not price or not day:
-        return jsonify({"error": "Title, price, and day are required"}), 400
+    if not title or not price or not day or not img_file or not dish_category:
+        return jsonify({"error": "Title, price, image and day are required"}), 400
 
     img_url = ""
     if img_file:
@@ -368,6 +589,7 @@ def create_dish():
         "title": title,
         "price": float(price),
         "day": day,
+        "dish_category": dish_category,
         "img": img_url,
         "created_by": request.user["user_id"],   # <-- Save user _id
         "created_at": datetime.utcnow(),
@@ -383,16 +605,34 @@ def create_dish():
 
 @app.route("/api/dishes", methods=["GET"])
 def get_dishes():
-    
-    dishes = list(mongo.db.dishes.find({"deleted_at": None}).sort("created_at", -1))
+
+    # Fetch categories
+    get_categories = list(
+        mongo.db.dish_categories.find({"deleted_at": None}).sort("created_at", -1)
+    )
+
+    # Convert category _id to string
+    for c in get_categories:
+        c["_id"] = str(c["_id"])
+
+    # Fetch dishes
+    dishes = list(
+        mongo.db.dishes.find({"deleted_at": None}).sort("created_at", -1)
+    )
+
+    # Convert _id and fix image URLs
     for d in dishes:
         d["_id"] = str(d["_id"])
         if "img" in d:
             if "cloudinary" not in d["img"]:
                 d["img"] = request.host_url.rstrip("/") + d["img"]
 
-            
-    return jsonify(dishes), 200
+    # Return combined response
+    return jsonify({
+        "dishes": dishes,
+        "categories": get_categories
+    }), 200
+
 
 
 @app.route("/api/dishes/<dish_id>", methods=["PUT"])
@@ -476,12 +716,25 @@ def delete_dish(dish_id):
 
 # Orders
 @app.route("/api/orders", methods=["GET"])
+@token_required
 def get_orders():
-    # Sort by 'created_at' in descending order (-1 means newest first)
-    orders = list(mongo.db.orders.find().sort("created_at", -1))
     
-    for order in orders:
-        order["_id"] = str(order["_id"])
+    user_id = request.user["user_id"]
+    user_role = request.user.get("role", "user")
+    
+    print("User Role:", user_role)
+    if user_role == "admin":
+        # Sort by 'created_at' in descending order (-1 means newest first)
+        orders = list(mongo.db.orders.find().sort("created_at", -1))
+        
+        for order in orders:
+            order["_id"] = str(order["_id"])
+    
+    else:
+        orders = list(mongo.db.orders.find({"user_id": user_id}).sort("created_at", -1))
+        
+        for order in orders:
+            order["_id"] = str(order["_id"])
         
     return jsonify(orders), 200
 
@@ -955,8 +1208,8 @@ def create_blog_post():
     category_id = request.form.get("category")
     img_file = request.files.get("image")
 
-    if not title or not content or not category_id:
-        return jsonify({"error": "Title, content, and category are required"}), 400
+    if not title or not content or not category_id or not img_file:
+        return jsonify({"error": "Title, content, thumbnail and category are required"}), 400
 
     # Handle image upload
     
@@ -1088,7 +1341,7 @@ def delete_blog(id):
         return jsonify({"message": "Server error", "error": str(e)}), 50
     
     
-# ✅ Get paginated blog posts
+# ✅ Get paginated blog posts WITH CORRECT category name
 @app.route("/api/blogpost", methods=["GET"])
 def get_blogposts():
     try:
@@ -1097,15 +1350,61 @@ def get_blogposts():
         skip = (page - 1) * limit
 
         total_posts = mongo.db.blog_posts.count_documents({})
-        posts_cursor = mongo.db.blog_posts.find().sort("created_at", -1).skip(skip).limit(limit)
+
+        posts_cursor = mongo.db.blog_posts.aggregate([
+
+            # ✅ Convert string category → ObjectId
+            {
+                "$addFields": {
+                    "category_obj_id": { "$toObjectId": "$category" }
+                }
+            },
+
+            # ✅ Proper lookup
+            {
+                "$lookup": {
+                    "from": "categories",
+                    "localField": "category_obj_id",   # ✅ MATCHES ObjectId
+                    "foreignField": "_id",
+                    "as": "category_data"
+                }
+            },
+
+            {
+                "$unwind": {
+                    "path": "$category_data",
+                    "preserveNullAndEmptyArrays": True
+                }
+            },
+
+            { "$sort": { "created_at": -1 } },
+            { "$skip": skip },
+            { "$limit": limit }
+
+        ])
+
         posts = list(posts_cursor)
 
-        # Convert ObjectId to string for frontend
+        # ✅ Final frontend-safe formatting
         for post in posts:
             post["_id"] = str(post["_id"])
-            # Prepend full URL to image if exists
-            if "image" in post and post["image"] and not post["image"].startswith("http"):
+
+            # ✅ Keep original category id
+            post["category_id"] = post.get("category")
+
+            # ✅ Correct category name from categories table
+            post["category"] = {
+                "name": post.get("category_data", {}).get("name"),
+                "slug": post.get("category_data", {}).get("slug")
+            }
+
+            # ✅ Fix image URL
+            if post.get("image") and not post["image"].startswith("http"):
                 post["image"] = f"http://localhost:5000{post['image']}"
+
+            # ✅ Cleanup
+            post.pop("category_data", None)
+            post.pop("category_obj_id", None)
 
         return jsonify({
             "posts": posts,
@@ -1113,9 +1412,11 @@ def get_blogposts():
             "limit": limit,
             "totalPages": (total_posts + limit - 1) // limit
         }), 200
+
     except Exception as e:
+        print("BLOG API ERROR:", e)
         return jsonify({"message": str(e)}), 500
-    
+  
 
 # --- API Route ---
 @app.route("/api/singleblogpost/<slug>", methods=["GET"])
@@ -1278,6 +1579,113 @@ def fetch_next_departures(stop_id):
     else:
         # Handle error
         return None
+    
+# ----------------------------
+# Create Announcement
+# ----------------------------
+@app.route("/api/announcements", methods=["POST"])
+def create_announcement():
+    data = request.json
+
+    announcement = {
+        "title": data.get("title"),
+        "message": data.get("message"),
+        "type": data.get("type", "toolbar"),
+        "status": data.get("status", "active"),
+        "startDate": data.get("startDate"),
+        "endDate": data.get("endDate"),
+        "created_at": datetime.utcnow()
+    }
+
+    mongo.db.announcements.insert_one(announcement)
+    return jsonify({"message": "Announcement created"}), 201
+
+
+# ----------------------------
+# Get All Announcements (Admin)
+# ----------------------------
+@app.route("/api/announcements", methods=["GET"])
+def get_announcements():
+    announcements = list(mongo.db.announcements.find().sort("created_at", -1))
+
+    for a in announcements:
+        a["_id"] = str(a["_id"])
+
+    return jsonify(announcements), 200
+
+@app.route("/api/announcement/active", methods=["GET"])
+def get_active_announcement():
+    now = datetime.utcnow()
+
+    ann = mongo.db.announcements.find_one({
+        "status": "active",
+        "$or": [
+            {"startDate": None},
+            {"startDate": {"$lte": now}}
+        ]
+    })
+
+    if not ann:
+        return jsonify(None), 200
+
+    ann["_id"] = str(ann["_id"])
+    return jsonify(ann), 200
+
+
+# ----------------------------
+# Get Active Store Notices (Public)
+# ----------------------------
+@app.route("/api/store-notices", methods=["GET"])
+def get_store_notices():
+    try:
+        notices = list(
+            mongo.db.announcements
+            .find({"status": "active"})
+            .sort("created_at", -1)
+        )
+
+        for notice in notices:
+            notice["_id"] = str(notice["_id"])
+            notice["created_at"] = notice["created_at"].strftime("%Y-%m-%d")
+
+        return jsonify(notices), 200
+
+    except Exception as e:
+        print("STORE NOTICE ERROR:", e)
+        return jsonify({"error": "Failed to fetch store notices"}), 500
+
+# ----------------------------
+# Update Announcement
+# ----------------------------
+@app.route("/api/announcements/<id>", methods=["PUT"])
+def update_announcement(id):
+    data = request.json
+
+    update = {
+        "title": data.get("title"),
+        "message": data.get("message"),
+        "type": data.get("type"),
+        "status": data.get("status"),
+        "startDate": data.get("startDate"),
+        "endDate": data.get("endDate"),
+    }
+
+    mongo.db.announcements.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": update}
+    )
+
+    return jsonify({"message": "Announcement updated"}), 200
+
+
+# ----------------------------
+# Delete Announcement
+# ----------------------------
+@app.route("/api/announcements/<id>", methods=["DELETE"])
+def delete_announcement(id):
+    mongo.db.announcements.delete_one({"_id": ObjectId(id)})
+    return jsonify({"message": "Announcement deleted"}), 200
+
 
 
 # ---------------------------
