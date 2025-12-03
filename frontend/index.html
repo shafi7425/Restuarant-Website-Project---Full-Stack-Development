@@ -30,10 +30,75 @@
 
   <!-- Theme css -->
   <link rel="stylesheet" id="change-link" type="text/css" href="assets/css/style.css">
+  <style>
+    /* ✅ Store Notice Bar */
+  .store-notice {
+    width: 100%;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
 
+  /* ✅ Hide by default */
+  .store-notice.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  /* ✅ Types */
+  .store-notice.info {
+    background: linear-gradient(90deg, #0284c7, #0369a1);
+  }
+
+  .store-notice.success {
+    background: linear-gradient(90deg, #16a34a, #166534);
+  }
+
+  .store-notice.warning {
+    background: linear-gradient(90deg, #f59e0b, #b45309);
+  }
+
+  .store-notice.error {
+    background: linear-gradient(90deg, #dc2626, #7f1d1d);
+  }
+
+  /* ✅ Text */
+  .notice-content {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* ✅ Close button */
+  #closeNotice {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  </style>
 </head>
 
 <body>
+
+  <!-- ✅ Store Announcement Topbar -->
+  <div id="storeNoticeBar" class="store-notice hidden">
+    <div class="notice-content">
+      <span id="noticeText"></span>
+    </div>
+    <button id="closeNotice">✖</button>
+  </div>
 
   <!-- Header placeholder -->
   <div id="header"></div>
@@ -65,6 +130,65 @@
 
   <!-- script js -->
   <script src="assets/js/script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script>
+const noticeBar = document.getElementById("storeNoticeBar");
+const noticeText = document.getElementById("noticeText");
+const closeNotice = document.getElementById("closeNotice");
+
+let notices = [];
+let currentIndex = 0;
+let interval = null;
+
+// ✅ Fetch Active Notices from Backend
+async function loadStoreNotices() {
+  try {
+    const res = await fetch("http://localhost:5000/api/store-notices");
+    notices = await res.json();
+
+    console.log("Loaded notices:", notices);
+
+    if (!notices.length) return;
+
+    showNotice(0);
+
+    // ✅ Auto rotate every 5 seconds
+    if (notices.length > 1) {
+      interval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % notices.length;
+        showNotice(currentIndex);
+      }, 5000);
+    }
+
+  } catch (error) {
+    console.error("Failed to load store notices:", error);
+  }
+}
+
+// ✅ Display Notice
+function showNotice(index) {
+  const notice = notices[index];
+
+  noticeBar.className = `store-notice ${notice.type}`;
+  noticeText.innerHTML = `<strong>${notice.title}</strong> — ${notice.message}`;
+
+  noticeBar.classList.remove("hidden");
+}
+
+// ✅ Close button
+closeNotice.addEventListener("click", () => {
+  noticeBar.classList.add("hidden");
+  clearInterval(interval);
+});
+
+// ✅ Load on page load
+document.addEventListener("DOMContentLoaded", loadStoreNotices);
+</script>
+
 </body>
 
 </html>
