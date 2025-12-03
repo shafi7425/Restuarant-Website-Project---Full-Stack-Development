@@ -63,12 +63,12 @@ export async function blogsInit() {
                     <div class="blog-box list-box">
                         <div class="blog-image">
                             <div class="bg-size" style="
-                                background-image: url('${API_BASE}${blog.image}');
+                                background-image: url('${blog.image}');
                                 background-size: cover;
                                 background-position: center;
                                 background-repeat: no-repeat;
                             ">
-                                <img class="bg-img img" src="${API_BASE}${blog.image}" alt="${blog.title}" style="display:none;">
+                                <img class="bg-img img" src="${blog.image}" alt="${blog.title}" style="display:none;">
                             </div>
                         </div>
                         <div class="blog-details border-0">
