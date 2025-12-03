@@ -1,5 +1,6 @@
-import { getFoods } from "./api.js";
+import { API_BASE } from "../../../public/assets/js/api.js";
 import { createFoodCard, $, addToCart } from "./utils.js";
+
 
 async function init() {
     const container = $("#food-container"); 
