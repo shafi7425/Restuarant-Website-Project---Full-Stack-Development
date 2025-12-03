@@ -4,10 +4,7 @@ export function render() {
     // Prevent access if already logged in
     if (isLoggedIn()) {
         const user = JSON.parse(localStorage.getItem("user_info")) || {};
-        if (user.role === "admin") goTo("/dashboard");
-        else if (hasCartItems()) goTo("/checkout");
-        else goTo("/");
-        return "";
+        goTo("/admin/dashboard");
     }
 
     return `
