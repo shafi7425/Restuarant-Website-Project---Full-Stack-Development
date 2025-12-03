@@ -139,6 +139,7 @@ function renderCheckoutItems() {
 async function handleCheckout(user_id) {
 
     const token = localStorage.getItem("auth_token");
+    console.log("Checkout initiated for user ID:", token);
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     if (cart.length === 0) {
