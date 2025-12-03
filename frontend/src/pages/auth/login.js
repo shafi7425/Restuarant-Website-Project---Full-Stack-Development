@@ -1,14 +1,14 @@
+import { refreshHeader } from "../../app.js";
 import { saveAuth, hasCartItems, goTo, isLoggedIn } from "../../helpers/auth.js";
 
 export function render() {
     // Prevent logged-in users from seeing login page
     if (isLoggedIn()) {
-        // Redirect immediately; no need to fetch user from backend
-        const user = JSON.parse(localStorage.getItem("user_info")) || {};
-        if (user.role === "admin") goTo("/dashboard");
+        const user = JSON.parse(localStorage.getItem("auth_user")) || {};
+        if (user.role === "admin") goTo("/admin/dashboard");
         else if (hasCartItems()) goTo("/checkout");
         else goTo("/");
-        return "";
+        return ""; // Don't render login page
     }
 
     return `
@@ -103,8 +103,12 @@ export function init() {
                 address: data.user.address || ""
             });
 
-            // ✅ Redirect based on role / cart
-            if (data.user.role === "admin") goTo("/dashboard");
+            // ✅ Refresh header immediately to show Dashboard/Login link
+            refreshHeader();
+
+            // ✅ Redirect based on role and cart
+            const userRole = data.user.role;
+            if (userRole === "admin") goTo("/admin/dashboard");
             else if (hasCartItems()) goTo("/checkout");
             else goTo("/");
 
