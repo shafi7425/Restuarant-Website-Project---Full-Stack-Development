@@ -31,80 +31,94 @@
   <!-- Theme css -->
   <link rel="stylesheet" id="change-link" type="text/css" href="assets/css/style.css">
   <style>
-    /* ✅ Store Notice Bar */
-  .store-notice {
+  /* ================================
+   ✅ Elegant Announcement Slider
+================================ */
+
+.announcement-slider {
     width: 100%;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
+    background: linear-gradient(135deg, #111, #222);
+    position: relative;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.announcement-inner {
+    max-width: 1400px;
+    margin: auto;
+    position: relative;
+    padding: 0 20px;
+}
+
+/* Slides wrapper */
+#announcementTrack {
+    position: relative;
+    height: 42px;
+}
+
+/* Each slide */
+.announcement-slide {
+    position: absolute;
+    inset: 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    gap: 8px;
+
     font-size: 14px;
     font-weight: 500;
+    letter-spacing: 0.3px;
     color: #fff;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-  }
 
-  /* ✅ Hide by default */
-  .store-notice.hidden {
-    transform: translateY(-100%);
     opacity: 0;
-  }
+    transform: translateY(10px);
+    filter: blur(2px);
 
-  /* ✅ Types */
-  .store-notice.info {
-    background: linear-gradient(90deg, #0284c7, #0369a1);
-  }
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        filter 0.8s ease;
+}
 
-  .store-notice.success {
-    background: linear-gradient(90deg, #16a34a, #166534);
-  }
+.announcement-slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
 
-  .store-notice.warning {
-    background: linear-gradient(90deg, #f59e0b, #b45309);
-  }
+/* Title Highlight */
+.announcement-title {
+    font-weight: 700;
+    color: #ffb703;
+    white-space: nowrap;
+}
 
-  .store-notice.error {
-    background: linear-gradient(90deg, #dc2626, #7f1d1d);
-  }
 
-  /* ✅ Text */
-  .notice-content {
-    flex: 1;
-    text-align: center;
-  }
 
-  /* ✅ Close button */
-  #closeNotice {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+/* Hide on print */
+@media print {
+    .announcement-slider {
+        display: none;
+    }
+}
+
 
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ Store Announcement Topbar -->
-  <div id="storeNoticeBar" class="store-notice hidden">
-    <div class="notice-content">
-      <span id="noticeText"></span>
-    </div>
-    <button id="closeNotice">✖</button>
+  <!-- Elegant Announcement Slider -->
+  <div id="announcementSlider" class="announcement-slider d-none">
+      <div class="announcement-inner">
+          <div id="announcementTrack"></div>
+          <div class="announcement-progress">
+              <span id="announcementProgressBar"></span>
+          </div>
+      </div>
   </div>
-
   <!-- Header placeholder -->
   <div id="header"></div>
-
-      <div id="announcementBar" class="container mt-3"></div>
-
 
   <!-- Main content placeholder -->
   <main id="app"></main>

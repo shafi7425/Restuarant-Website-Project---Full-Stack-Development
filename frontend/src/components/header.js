@@ -1,6 +1,80 @@
 import { goTo, logout } from "../helpers/auth.js";
 import { isLoggedIn, getUser } from "../helpers/auth.js";
 
+let announcementIndex = 0;
+let announcementTimer = null;
+let announcementPaused = false;
+
+async function loadPublicAnnouncements() {
+    try {
+        const res = await fetch(`${API_BASE}/api/announcements`);
+        const data = await res.json();
+
+        const active = data.filter(a => a.status === "active");
+        if (!active.length) return;
+
+        const slider = document.getElementById("announcementSlider");
+        const track = document.getElementById("announcementTrack");
+        const progressBar = document.getElementById("announcementProgressBar");
+
+        slider.classList.remove("d-none");
+
+        track.innerHTML = active.map((a, i) => `
+            <div class="announcement-slide ${i === 0 ? "active" : ""}">
+                <span class="announcement-title">${escapeHtml(a.title)}</span>
+                <span>${escapeHtml(a.message)}</span>
+            </div>
+        `).join("");
+
+        const slides = document.querySelectorAll(".announcement-slide");
+
+        function showSlide(i) {
+            slides.forEach(s => s.classList.remove("active"));
+            slides[i].classList.add("active");
+
+            // Restart progress animation
+            progressBar.style.transition = "none";
+            progressBar.style.width = "0%";
+            requestAnimationFrame(() => {
+                progressBar.style.transition = "width 3.5s linear";
+                progressBar.style.width = "100%";
+            });
+        }
+
+        function startAutoSlide() {
+            if (announcementTimer) clearInterval(announcementTimer);
+
+            announcementTimer = setInterval(() => {
+                if (announcementPaused) return;
+
+                announcementIndex = (announcementIndex + 1) % slides.length;
+                showSlide(announcementIndex);
+
+            }, 3500);
+        }
+
+        // Pause on hover
+        slider.addEventListener("mouseenter", () => announcementPaused = true);
+        slider.addEventListener("mouseleave", () => announcementPaused = false);
+
+        showSlide(0);
+        startAutoSlide();
+
+    } catch (err) {
+        console.warn("Announcement slider failed:", err);
+    }
+}
+
+function escapeHtml(str = "") {
+    return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+}
+
+document.addEventListener("DOMContentLoaded", loadPublicAnnouncements);
+
+
 // Render the header HTML
 export function renderHeader() {
     const path = window.location.pathname;
@@ -12,9 +86,6 @@ export function renderHeader() {
     const user = getUser() || {};
 
     return `
-    <marquee class="bg-dark py-1 text-center" behavior="scroll" direction="right" scrollamount="5">
-        <span class="white">Free Delivery on orders over $50!</span>
-    </marquee>
 
     <header class="header-light">
         <div class="container">
@@ -87,3 +158,5 @@ document.addEventListener("click", (e) => {
         logout();
     }
 });
+
+

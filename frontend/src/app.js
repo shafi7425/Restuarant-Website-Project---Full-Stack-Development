@@ -65,37 +65,3 @@ const token = localStorage.getItem("auth_token");
 if (token && isTokenExpired(token)) {
     logout('/login');
 }
-// Load Public Announcements
-async function loadPublicAnnouncements() {
-    try {
-        const res = await fetch(`${API_BASE}/api/announcements`);
-        const data = await res.json();
-
-        const active = data.filter(a => a.status === "active");
-
-        if (!active.length) return;
-
-        const html = active.map(a => `
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>${escapeHtml(a.title)}</strong> – ${escapeHtml(a.message)}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        `).join("");
-
-        document.getElementById("announcementBar").innerHTML = html;
-
-    } catch (err) {
-        console.warn("Announcements failed:", err);
-    }
-}
-
-// helper
-function escapeHtml(str = "") {
-    return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
-}
-
-// Call on page load
-document.addEventListener("DOMContentLoaded", loadPublicAnnouncements);
