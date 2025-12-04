@@ -17,6 +17,7 @@ import { ordersPage } from './pages/dashboard/orders.js';
 import { dishesPage } from './pages/dashboard/dishes.js';
 import { dishcategoriesPage } from './pages/dashboard/dish-categories.js';
 import { blogsPage } from './pages/dashboard/blogs.js';
+import { announcementsPage } from './pages/dashboard/announcements.js';
 
 
 
@@ -250,6 +251,24 @@ export function router(path) {
                 keywords: 'dashboard, zomo, account'
             });
             break;
+
+        case path === '/admin/announcements':
+             if (isLoggedIn()) {
+                const user = getUser();
+                if (user.role !== "admin") {
+                    goTo("/admin/dashboard");
+                    return
+                }
+            }
+            announcementsPage();
+            
+            setMeta({
+                title: 'Announcements - Zomo',
+                description: 'Announcements.',
+                keywords: 'Announcements, notices'
+            });
+            break;
+
 
         // ✅ Home Page
         case path === '/':

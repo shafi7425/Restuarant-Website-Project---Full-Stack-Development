@@ -44,6 +44,11 @@ export function renderSidebar() {
                     </a>
                 </li>
                 <li class="nav-item mb-2">
+                    <a class="nav-link text-white" href="/admin/announcements" data-link>
+                        <i class="ri-store-2-line me-2"></i> Announcements
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
                     <a class="nav-link text-white" href="/admin/blogs" data-link>
                         <i class="ri-store-2-line me-2"></i> Blogs
                     </a>

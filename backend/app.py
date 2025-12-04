@@ -1581,110 +1581,74 @@ def fetch_next_departures(stop_id):
         return None
     
 # ----------------------------
-# Create Announcement
-# ----------------------------
-@app.route("/api/announcements", methods=["POST"])
-def create_announcement():
-    data = request.json
-
-    announcement = {
-        "title": data.get("title"),
-        "message": data.get("message"),
-        "type": data.get("type", "toolbar"),
-        "status": data.get("status", "active"),
-        "startDate": data.get("startDate"),
-        "endDate": data.get("endDate"),
-        "created_at": datetime.utcnow()
-    }
-
-    mongo.db.announcements.insert_one(announcement)
-    return jsonify({"message": "Announcement created"}), 201
-
-
-# ----------------------------
-# Get All Announcements (Admin)
+# Get all announcements (admin + public)
 # ----------------------------
 @app.route("/api/announcements", methods=["GET"])
 def get_announcements():
-    announcements = list(mongo.db.announcements.find().sort("created_at", -1))
-
-    for a in announcements:
-        a["_id"] = str(a["_id"])
-
-    return jsonify(announcements), 200
-
-@app.route("/api/announcement/active", methods=["GET"])
-def get_active_announcement():
-    now = datetime.utcnow()
-
-    ann = mongo.db.announcements.find_one({
-        "status": "active",
-        "$or": [
-            {"startDate": None},
-            {"startDate": {"$lte": now}}
-        ]
-    })
-
-    if not ann:
-        return jsonify(None), 200
-
-    ann["_id"] = str(ann["_id"])
-    return jsonify(ann), 200
-
-
-# ----------------------------
-# Get Active Store Notices (Public)
-# ----------------------------
-@app.route("/api/store-notices", methods=["GET"])
-def get_store_notices():
     try:
-        notices = list(
-            mongo.db.announcements
-            .find({"status": "active"})
-            .sort("created_at", -1)
-        )
+        items = list(mongo.db.announcements.find().sort("created_at", -1))
 
-        for notice in notices:
-            notice["_id"] = str(notice["_id"])
-            notice["created_at"] = notice["created_at"].strftime("%Y-%m-%d")
+        for a in items:
+            a["_id"] = str(a["_id"])
+            a["created_at"] = a["created_at"].strftime("%Y-%m-%d %H:%M")
 
-        return jsonify(notices), 200
+        return jsonify(items), 200
+    except Exception as e:
+        print("ANNOUNCEMENTS ERROR:", e)
+        return jsonify({"error": "Failed to fetch"}), 500
+
+
+# ----------------------------
+# Add announcement (ADMIN)
+# ----------------------------
+@app.route("/api/announcements", methods=["POST"])
+def add_announcement():
+    try:
+        data = request.json
+
+        announcement = {
+            "title": data.get("title"),
+            "message": data.get("message"),
+            "status": data.get("status", "active"),
+            "created_at": datetime.utcnow()
+        }
+
+        mongo.db.announcements.insert_one(announcement)
+        return jsonify({"message": "Announcement added"}), 201
 
     except Exception as e:
-        print("STORE NOTICE ERROR:", e)
-        return jsonify({"error": "Failed to fetch store notices"}), 500
-
-# ----------------------------
-# Update Announcement
-# ----------------------------
-@app.route("/api/announcements/<id>", methods=["PUT"])
-def update_announcement(id):
-    data = request.json
-
-    update = {
-        "title": data.get("title"),
-        "message": data.get("message"),
-        "type": data.get("type"),
-        "status": data.get("status"),
-        "startDate": data.get("startDate"),
-        "endDate": data.get("endDate"),
-    }
-
-    mongo.db.announcements.update_one(
-        {"_id": ObjectId(id)},
-        {"$set": update}
-    )
-
-    return jsonify({"message": "Announcement updated"}), 200
+        print("ADD ANNOUNCEMENT ERROR:", e)
+        return jsonify({"error": "Failed to add"}), 500
 
 
 # ----------------------------
-# Delete Announcement
+# Delete announcement
 # ----------------------------
 @app.route("/api/announcements/<id>", methods=["DELETE"])
 def delete_announcement(id):
-    mongo.db.announcements.delete_one({"_id": ObjectId(id)})
-    return jsonify({"message": "Announcement deleted"}), 200
+    try:
+        mongo.db.announcements.delete_one({"_id": ObjectId(id)})
+        return jsonify({"message": "Deleted"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Failed"}), 500
+
+
+# ----------------------------
+# Toggle announcement status
+# ----------------------------
+@app.route("/api/announcements/status/<id>", methods=["PUT"])
+def toggle_announcement(id):
+    try:
+        data = request.json
+        mongo.db.announcements.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": {"status": data.get("status")}}
+        )
+        return jsonify({"message": "Updated"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Failed"}), 500
 
 
 
