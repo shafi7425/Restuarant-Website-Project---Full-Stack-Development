@@ -77,7 +77,7 @@ export function dishInit() {
 // ✅ Fetch dish details
 async function loadDish(id) {
     try {
-        const res = await fetch(`http://localhost:5000/api/dish/${id}`);
+        const res = await fetch(`https://restuarant-website-project-full-stack.onrender.com/api/dish/${id}`);
         const data = await res.json();
 
         if (!res.ok || !data.dish) {

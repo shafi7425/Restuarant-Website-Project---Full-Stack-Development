@@ -1,5 +1,5 @@
 // Change this to your Flask backend URL
-export const API_BASE = "http://localhost:5000";
+export const API_BASE = "https://restuarant-website-project-full-stack.onrender.com";
 window.API_BASE = API_BASE;
 
 // --- GET: Fetch full menu list ---
