@@ -10,7 +10,7 @@ export function dishPage() {
                     <li class="breadcrumb-item">
                         <a href="/" data-link><i class="ri-home-line"></i>Home</a>
                     </li>
-                    <li id="dish-name" class="breadcrumb-item active" aria-current="page">Loading...</li>
+                    <li class="dish-name breadcrumb-item active" aria-current="page">Loading...</li>
                 </ol>
             </nav>
         </div>
@@ -32,7 +32,7 @@ export function dishPage() {
                     <div class="title animated-title">
                         <div class="loader-line"></div>
 
-                        <h1 id="dish-name" class="mb-sm-3 mb-2">Loading...</h1>
+                        <h1 class="dish-name mb-sm-3 mb-2">Loading...</h1>
                         <p id="dish-description" class="content-color">Please wait...</p>
 
                         <h3 id="dish-price" class="mt-3"></h3>
@@ -89,7 +89,7 @@ async function loadDish(id) {
 
         // ✅ Update UI
         document.getElementById("dish-title").innerText = dish.title;
-        document.getElementById("dish-name").innerText = dish.title;
+        document.getElementByClass("dish-name").innerText = dish.title;
         document.getElementById("dish-img").src = dish.img;
         document.getElementById("dish-description").innerText = dish.description || "No description available.";
         document.getElementById("dish-price").innerText = `Price: $${dish.price}`;
