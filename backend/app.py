@@ -22,8 +22,13 @@ import cloudinary.api
 # ---------------------------
 # Config
 # ---------------------------
+
 app = Flask(__name__, static_folder="build", static_url_path="")
-CORS(app, supports_credentials=True, origins=["https://restuarant-website-project-full-sta-two.vercel.app", "http://restuarant-website-project-full-sta-two.vercel.app"])
+
+# Allow your frontend origin for all /api routes
+CORS(app, supports_credentials=True, resources={
+    r"/api/*": {"origins": "https://restuarant-website-project-full-sta-two.vercel.app"}
+})
 
 MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://foodieweb:FoodieWeb1!@cluster0.cqqlapf.mongodb.net/FoodieWeb?retryWrites=true&w=majority")
 SECRET_KEY = os.getenv("SECRET_KEY", "change_me_in_prod")
