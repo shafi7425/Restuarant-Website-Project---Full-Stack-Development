@@ -43,9 +43,9 @@ export function router(path) {
             app.innerHTML = loginPage();
             loginInit();
             setMeta({
-                title: 'Login - Zomo',
-                description: 'Login to your Zomo account.',
-                keywords: 'login, zomo, account'
+                title: 'Login - Foodie Web',
+                description: 'Login to your Foodie Web account.',
+                keywords: 'login, Foodie Web, account'
             });
             break;
 
@@ -67,9 +67,9 @@ export function router(path) {
             app.innerHTML = registerPage();
             registerInit();
             setMeta({
-                title: 'Register - Zomo',
-                description: 'Create a new Zomo account.',
-                keywords: 'register, signup, zomo'
+                title: 'Register - Foodie Web',
+                description: 'Create a new Foodie Web account.',
+                keywords: 'register, signup, Foodie Web'
             });
             break;
 
@@ -77,9 +77,9 @@ export function router(path) {
         case path === '/about-us':
             app.innerHTML = about();
             setMeta({
-                title: 'About Us - Zomo',
-                description: 'Learn more about Zomo.',
-                keywords: 'about, zomo'
+                title: 'About Us - Foodie Web',
+                description: 'Learn more about Foodie Web.',
+                keywords: 'about, Foodie Web'
             });
             break;
 
@@ -88,9 +88,9 @@ export function router(path) {
             app.innerHTML = blogs();
             blogsInit();
             setMeta({
-                title: 'Blogs - Zomo',
+                title: 'Blogs - Foodie Web',
                 description: 'Read the latest articles and updates.',
-                keywords: 'blogs, food, zomo'
+                keywords: 'blogs, food, Foodie Web'
             });
             break;
             
@@ -100,9 +100,9 @@ export function router(path) {
             blogSingleInit({ id: blogId });
 
             setMeta({
-                title: 'Blog Details - Zomo',
+                title: 'Blog Details - Foodie Web',
                 description: 'Read this blog article.',
-                keywords: 'blog, article, zomo'
+                keywords: 'blog, article, Foodie Web'
             });
             break;
         }
@@ -112,9 +112,9 @@ export function router(path) {
         case path === '/contact-us':
             app.innerHTML = contact();
             setMeta({
-                title: 'Contact Us - Zomo',
-                description: 'Get in touch with Zomo.',
-                keywords: 'contact, zomo'
+                title: 'Contact Us - Foodie Web',
+                description: 'Get in touch with Foodie Web.',
+                keywords: 'contact, Foodie Web'
             });
             break;
 
@@ -123,9 +123,9 @@ export function router(path) {
             app.innerHTML = dishPage();
             dishInit();
             setMeta({
-                title: 'Single Product - Zomo',
+                title: 'Single Product - Foodie Web',
                 description: 'View details of this dish.',
-                keywords: 'dish, zomo, food'
+                keywords: 'dish, Foodie Web, food'
             });
             break;
 
@@ -134,9 +134,9 @@ export function router(path) {
             app.innerHTML = cartPage();
             cartInit();
             setMeta({
-                title: 'Cart - Zomo',
+                title: 'Cart - Foodie Web',
                 description: 'View your shopping cart.',
-                keywords: 'cart, zomo, order'
+                keywords: 'cart, Foodie Web, order'
             });
             break;
 
@@ -150,9 +150,9 @@ export function router(path) {
             app.innerHTML = checkoutPage();
             checkoutInit();
             setMeta({
-                title: 'Checkout - Zomo',
+                title: 'Checkout - Foodie Web',
                 description: 'Complete your order.',
-                keywords: 'checkout, zomo, order'
+                keywords: 'checkout, Foodie Web, order'
             });
             break;
 
@@ -160,9 +160,9 @@ export function router(path) {
         case path.startsWith('/thank-you'):
             app.innerHTML = thankyou(); 
             setMeta({
-                title: 'Thank You - Zomo',
+                title: 'Thank You - Foodie Web',
                 description: 'Order placed successfully.',
-                keywords: 'order, thank you, zomo'
+                keywords: 'order, thank you, Foodie Web'
             });
             break;
 
@@ -172,9 +172,9 @@ export function router(path) {
                 m.trackorderInit();
             });
             setMeta({
-                title: 'Track Your Order - Zomo',
-                description: 'Check the status of your recent Zomo order.',
-                keywords: 'track order, order status, zomo'
+                title: 'Track Your Order - Foodie Web',
+                description: 'Check the status of your recent Foodie Web order.',
+                keywords: 'track order, order status, Foodie Web'
             });
             break;
 
@@ -183,9 +183,9 @@ export function router(path) {
             app.innerHTML = dashboard();
             dashboardInit();
             setMeta({
-                title: 'Dashboard - Zomo',
+                title: 'Dashboard - Foodie Web',
                 description: 'Your account overview.',
-                keywords: 'dashboard, zomo, account'
+                keywords: 'dashboard, Foodie Web, account'
             });
             break;
            
@@ -194,9 +194,9 @@ export function router(path) {
             app.innerHTML = ordersPage();
             
             setMeta({
-                title: 'Orders - Zomo',
+                title: 'Orders - Foodie Web',
                 description: 'Your account overview.',
-                keywords: 'dashboard, zomo, account'
+                keywords: 'dashboard, Foodie Web, account'
             });
             break;
 
@@ -212,9 +212,9 @@ export function router(path) {
             app.innerHTML = dishesPage();
             
             setMeta({
-                title: 'Dishes - Zomo',
+                title: 'Dishes - Foodie Web',
                 description: 'Your account overview.',
-                keywords: 'dashboard, zomo, account'
+                keywords: 'dashboard, Foodie Web, account'
             });
             break;
             // ✅ Dishes
@@ -229,9 +229,9 @@ export function router(path) {
             app.innerHTML = dishcategoriesPage();
             
             setMeta({
-                title: 'Dish Categories - Zomo',
+                title: 'Dish Categories - Foodie Web',
                 description: 'Your account overview.',
-                keywords: 'dashboard, zomo, account'
+                keywords: 'dashboard, Foodie Web, account'
             });
             break;
         
@@ -246,9 +246,9 @@ export function router(path) {
             blogsPage();
             
             setMeta({
-                title: 'Blogs - Zomo',
+                title: 'Blogs - Foodie Web',
                 description: 'Your account overview.',
-                keywords: 'dashboard, zomo, account'
+                keywords: 'dashboard, Foodie Web, account'
             });
             break;
 
@@ -263,7 +263,7 @@ export function router(path) {
             announcementsPage();
             
             setMeta({
-                title: 'Announcements - Zomo',
+                title: 'Announcements - Foodie Web',
                 description: 'Announcements.',
                 keywords: 'Announcements, notices'
             });
@@ -276,9 +276,9 @@ export function router(path) {
             app.innerHTML = home();
             loadDishes();
             setMeta({
-                title: 'Home - Zomo',
-                description: 'Zomo online food ordering platform.',
-                keywords: 'zomo, food, delivery'
+                title: 'Home - Foodie Web',
+                description: 'Foodie Web online food ordering platform.',
+                keywords: 'Foodie Web, food, delivery'
             });
             break;
     }
