@@ -10,7 +10,7 @@ export function dishPage() {
                     <li class="breadcrumb-item">
                         <a href="/" data-link><i class="ri-home-line"></i>Home</a>
                     </li>
-                    <li id="dish-title" class="breadcrumb-item active" aria-current="page">Loading...</li>
+                    <li id="dish-name" class="breadcrumb-item active" aria-current="page">Loading...</li>
                 </ol>
             </nav>
         </div>
