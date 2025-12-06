@@ -78,7 +78,7 @@ export function init() {
         const password = document.querySelector("#password").value;
 
         try {
-            const res = await fetch("http://127.0.0.1:5000/api/login", {
+            const res = await fetch("https://restuarant-website-project-full-stack.onrender.com/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
