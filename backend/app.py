@@ -655,6 +655,7 @@ def update_dish(dish_id):
     title = request.form.get("title") or dish["title"]
     price = request.form.get("price") or dish["price"]
     day = request.form.get("day") or dish["day"]
+    description = request.form.get("description") or dish["description"]
 
     img_file = request.files.get("img")
     img_url = dish.get("img", "")
@@ -687,6 +688,7 @@ def update_dish(dish_id):
             "price": price,
             "day": day.strip(),
             "img": img_url,
+            "description": description,
             "updated_by": request.user["email"],
             "updated_at": datetime.utcnow()
         }}

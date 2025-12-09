@@ -651,7 +651,7 @@ function openDishModal(dish = null, opts = {}) {
             const categoryId = document.getElementById("dishCategory").value;
             const desc = document.getElementById("dishDesc").value;
 
-            console.log("Submitting dish:", {desc});
+            console.log("Submitting dish:", { title, price, day, categoryId, desc});
 
             if (!title) {
                 alert("Title required");
