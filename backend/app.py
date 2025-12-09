@@ -646,47 +646,44 @@ def update_dish(dish_id):
     except Exception:
         return jsonify({"error": "Invalid dish ID"}), 400
 
-    # Check if dish exists and not soft-deleted
     dish = mongo.db.dishes.find_one({"_id": dish_oid, "deleted_at": None})
     if not dish:
         return jsonify({"error": "Dish not found"}), 404
 
-    # Get form data (or existing values)
-    title = request.form.get("title") or dish["title"]
-    price = request.form.get("price") or dish["price"]
-    day = request.form.get("day") or dish["day"]
-    description = request.form.get("description") or dish["description"]
+    title = request.form.get("title") or dish.get("title", "")
+    day = request.form.get("day") or dish.get("day", "")
+    description = request.form.get("description")
+    if description is None:
+        description = dish.get("description", "")
 
-    img_file = request.files.get("img")
+    category_id = request.form.get("category_id") or dish.get("category_id")
+
+    price = request.form.get("price", dish.get("price", 0))
+
     img_url = dish.get("img", "")
+    img_file = request.files.get("img")
 
-    # ✅ Cloudinary upload (only if new image provided)
     if img_file:
-        try:
-            upload_result = cloudinary.uploader.upload(
-                img_file,
-                folder="foodieweb/dishes",  # Store in organized folder
-                public_id=f"{dish_id}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}",
-                overwrite=True
-            )
-            img_url = upload_result.get("secure_url")
-        except Exception as e:
-            print("Cloudinary upload error:", e)
-            return jsonify({"error": "Failed to upload dish image"}), 500
+        upload = cloudinary.uploader.upload(
+            img_file,
+            folder="foodieweb/dishes",
+            public_id=f"{dish_id}_{datetime.utcnow().strftime('%Y%m%d%H%M%S')}",
+            overwrite=True
+        )
+        img_url = upload.get("secure_url")
 
-    # ✅ Ensure numeric price conversion
     try:
         price = float(price)
     except ValueError:
         return jsonify({"error": "Invalid price value"}), 400
 
-    # ✅ Update dish in MongoDB
     mongo.db.dishes.update_one(
         {"_id": dish_oid},
         {"$set": {
             "title": title.strip(),
             "price": price,
             "day": day.strip(),
+            "category_id": category_id,
             "img": img_url,
             "description": description,
             "updated_by": request.user["email"],
@@ -695,6 +692,7 @@ def update_dish(dish_id):
     )
 
     return jsonify({"message": "Dish updated successfully"}), 200
+
 
 @app.route("/api/dishes/<dish_id>", methods=["DELETE"])
 @token_required
