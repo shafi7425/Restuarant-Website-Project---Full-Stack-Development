@@ -573,6 +573,8 @@ def create_dish():
     price = request.form.get("price")
     day = request.form.get("day")
     dish_category = request.form.get("category_id")
+    description = request.form.get("description")
+
     print("Dish Category ID:", dish_category)
     img_file = request.files.get("img")
 
@@ -593,6 +595,7 @@ def create_dish():
         "price": float(price),
         "day": day,
         "dish_category": dish_category,
+        "description": description,
         "img": img_url,
         "created_by": request.user["user_id"],   # <-- Save user _id
         "created_at": datetime.utcnow(),
