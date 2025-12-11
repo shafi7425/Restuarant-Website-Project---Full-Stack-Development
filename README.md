@@ -1,4 +1,4 @@
-# Foodie Web — Order Booking Web Application
+# Foodie Web — Order Booking Web App
 
 **Repository:** [https://github.com/shafi7425/Restuarant-Website-Project---Full-Stack-Development](https://github.com/shafi7425/Restuarant-Website-Project---Full-Stack-Development)  
 
