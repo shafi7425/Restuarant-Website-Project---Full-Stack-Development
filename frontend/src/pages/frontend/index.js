@@ -201,7 +201,9 @@ export async function loadDishes() {
         const data = await res.json();
         const dishes = data.dishes || [];
 
-        document.getElementById("today-heading").innerText = `${data.today}'s Dishes`;
+        document.getElementById("today-heading").innerHTML = `
+            <span style="color:#f2a93e;">${data.today}</span>'s Dishes
+        `;
 
 
         if (dishes.length === 0) {
