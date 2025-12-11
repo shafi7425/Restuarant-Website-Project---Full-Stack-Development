@@ -212,7 +212,7 @@ export async function loadDishes() {
         }
 
         container.innerHTML = dishes.map(dish => `
-            <div class="class="col-xl-3 col-lg-3 col-sm-6 col-6"">
+            <div class="col-xl-3 col-lg-3 col-sm-6 col-6">
                 <div class="vertical-product-box">
                     <div class="vertical-product-box-img">
                         <a href="/dish?id=${dish._id}" data-link>
