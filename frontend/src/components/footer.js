@@ -31,55 +31,41 @@ export function renderFooter() {
                         <div class="row g-3">
 
                             <!-- Company -->
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div>
                                     <h5 class="footer-title">Company</h5>
                                     <ul class="content">
-                                        <li><a class="nav-links" href="about.html"><h6>About us</h6></a></li>
-                                        <li><a class="nav-links" href="contact.html"><h6>Contact us</h6></a></li>
-                                        <li><a class="nav-links" href="offer.html"><h6>Offer</h6></a></li>
-                                        <li><a class="nav-links" href="faq.html"><h6>FAQs</h6></a></li>
+                                        <li><a class="nav-links" href="/about-us"><h6>About us</h6></a></li>
+                                        <li><a class="nav-links" href="/contact-us"><h6>Contact us</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>Offer</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>FAQs</h6></a></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <!-- Account -->
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div>
                                     <h5 class="footer-title">Account</h5>
                                     <ul class="content">
-                                        <li><a class="nav-links" href="my-order.html"><h6>My orders</h6></a></li>
-                                        <li><a class="nav-links" href="wishlist.html"><h6>Wishlist</h6></a></li>
-                                        <li><a class="nav-links" href="checkout.html"><h6>Shopping Cart</h6></a></li>
-                                        <li><a class="nav-links" href="saved-address.html"><h6>Saved Address</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>My orders</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>Wishlist</h6></a></li>
+                                        <li><a class="nav-links" href="/cart"><h6>Shopping Cart</h6></a></li>
+                                        <li><a class="nav-links" href=""><h6>Saved Address</h6></a></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <!-- Useful Links -->
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                 <div>
                                     <h5 class="footer-title">Useful links</h5>
                                     <ul class="content">
-                                        <li><a class="nav-links" href="blog-grid-left-sidebar.html"><h6>Blogs</h6></a></li>
+                                        <li><a class="nav-links" href="/blogs"><h6>Blogs</h6></a></li>
                                         <li><a class="nav-links" href="/login" data-link><h6>Login</h6></a></li>
                                         <li><a class="nav-links" href="/register" data-link><h6>Register</h6></a></li>
-                                        <li><a class="nav-links" href="profile.html"><h6>Profile</h6></a></li>
-                                        <li><a class="nav-links" href="setting.html"><h6>Settings</h6></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Brands -->
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-                                <div>
-                                    <h5 class="footer-title">Top Brands</h5>
-                                    <ul class="content">
-                                        <li><a class="nav-links" href="menu-listing.html"><h6>PizzaBoy</h6></a></li>
-                                        <li><a class="nav-links" href="menu-listing.html"><h6>Saladish</h6></a></li>
-                                        <li><a class="nav-links" href="menu-listing.html"><h6>IcePops</h6></a></li>
-                                        <li><a class="nav-links" href="menu-listing.html"><h6>Maxican Hoy</h6></a></li>
-                                        <li><a class="nav-links" href="menu-listing.html"><h6>La Foodie</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>Profile</h6></a></li>
+                                        <li><a class="nav-links" href="#"><h6>Settings</h6></a></li>
                                     </ul>
                                 </div>
                             </div>
