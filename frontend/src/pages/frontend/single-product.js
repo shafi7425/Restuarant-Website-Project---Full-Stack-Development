@@ -5,10 +5,11 @@ export function dishPage() {
     <section class="page-head-section app-section">
         <div class="container page-heading">
             <h1 id="dish-title" class="h3 mb-3 text-white text-center">Loading...</h1>
+
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-star">
+                <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start">
                     <li class="breadcrumb-item">
-                        <a href="/" data-link><i class="ri-home-line"></i>Home</a>
+                        <a href="/" data-link><i class="ri-home-line"></i> Home</a>
                     </li>
                     <li class="dish-name breadcrumb-item active" aria-current="page">Loading...</li>
                 </ol>
@@ -37,7 +38,7 @@ export function dishPage() {
 
                         <h3 id="dish-price" class="mt-3"></h3>
 
-                        <!-- ✅ ADD TO CART BUTTON -->
+                        <!-- ADD TO CART BUTTON -->
                         <button id="add-to-cart" class="btn theme-btn mt-3">
                             <i class="ri-shopping-cart-line"></i> Add to Cart
                         </button>
@@ -48,7 +49,7 @@ export function dishPage() {
         </div>
     </section>
 
-    <!-- ✅ Toast Container -->
+    <!-- Toast Container -->
     <div id="toast-container" style="
         position: fixed;
         bottom: 20px;
@@ -61,7 +62,7 @@ export function dishPage() {
     `;
 }
 
-// ✅ Initialize Dish Page
+// 🔥 Initialize Dish Page
 export function dishInit() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -74,7 +75,7 @@ export function dishInit() {
     loadDish(id);
 }
 
-// ✅ Fetch dish details
+// 🔥 Fetch dish details
 async function loadDish(id) {
     try {
         const res = await fetch(`${API_BASE}/api/dish/${id}`);
@@ -87,32 +88,36 @@ async function loadDish(id) {
 
         const dish = data.dish;
 
-        // ✅ Update UI
+        // Update page title
         document.getElementById("dish-title").innerText = dish.title;
-        document.getElementByClass("dish-name").innerText = dish.title;
+
+        // Update all .dish-name elements (breadcrumb + header)
+        document.querySelectorAll(".dish-name").forEach(el => {
+            el.innerText = dish.title;
+        });
+
         document.getElementById("dish-img").src = dish.img;
         document.getElementById("dish-description").innerText = dish.description || "No description available.";
         document.getElementById("dish-price").innerText = `Price: $${dish.price}`;
 
-        // ✅ Add to Cart Functionality
+        // Add to Cart button
         document.getElementById("add-to-cart").addEventListener("click", () => {
             addToCart(dish);
         });
 
-        // ✅ Update meta title
-        document.title = `${dish.title}`;
-    }
-    catch (err) {
+        // Update document title
+        document.title = dish.title;
+
+    } catch (err) {
         console.error(err);
         redirectHome();
     }
 }
 
-// ✅ Add to Cart (LocalStorage + Toast)
+// 🔥 Add to Cart (LocalStorage + Toast)
 function addToCart(dish) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // If dish exists, increase qty
     const exists = cart.find(item => item._id === dish._id);
     if (exists) {
         exists.qty += 1;
@@ -128,18 +133,14 @@ function addToCart(dish) {
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // ✅ Show toast notification
     showToast(`${dish.title} added to cart`);
-
-    // ✅ Update header cart bubble
     updateCartCount();
 }
 
-// ✅ Show Toast (Queueable)
+// 🔥 Toast Message
 function showToast(message) {
     const container = document.getElementById("toast-container");
 
-    // Create toast element
     const toast = document.createElement("div");
     toast.innerText = message;
     toast.style.background = "#28a745";
@@ -153,23 +154,19 @@ function showToast(message) {
 
     container.appendChild(toast);
 
-    // Slide in
     requestAnimationFrame(() => {
         toast.style.transform = "translateX(0)";
         toast.style.opacity = "1";
     });
 
-    // Remove after 2s
     setTimeout(() => {
         toast.style.transform = "translateX(100%)";
         toast.style.opacity = "0";
-        toast.addEventListener("transitionend", () => {
-            toast.remove();
-        });
+        toast.addEventListener("transitionend", () => toast.remove());
     }, 2000);
 }
 
-// ✅ Update Header Cart Counter
+// 🔥 Update cart bubble
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const total = cart.reduce((sum, item) => sum + item.qty, 0);
@@ -178,7 +175,7 @@ function updateCartCount() {
     if (bubble) bubble.innerText = total;
 }
 
-// ✅ Redirect Home (SPA — no page reload)
+// 🔥 Redirect Home (SPA)
 function redirectHome() {
     history.pushState(null, null, '/');
     import('/src/router.js').then(m => m.router('/'));
