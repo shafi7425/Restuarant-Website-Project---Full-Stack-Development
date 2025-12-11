@@ -34,11 +34,6 @@ export function renderSidebar() {
             </li>
             ${userRole === "admin" ? `
                 <li class="nav-item mb-2">
-                    <a class="nav-link text-white" href="/admin/users" data-link>
-                        <i class="ri-user-3-line me-2"></i> Users
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
                     <a class="nav-link text-white" href="/admin/dishes" data-link>
                         <i class="ri-store-2-line me-2"></i> Dishes
                     </a>
