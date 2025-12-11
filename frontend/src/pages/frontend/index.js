@@ -49,7 +49,7 @@ export function home() {
     <section class="restaurant-list section-b-space banner-section ratio3_2">
         <div class="container">
             <div class="title restaurant-title w-border pb-0">
-                <h2>Featured Restaurants</h2>
+                <h2 id="today-heading">Featured Restaurants</h2>
                 <div class="loader-line"></div>
             </div>
             <div class="tab-content restaurant-content" id="TabContent">
@@ -200,6 +200,9 @@ export async function loadDishes() {
         const res = await fetch(`${API_BASE}/api/fdishes`);
         const data = await res.json();
         const dishes = data.dishes || [];
+
+        document.getElementById("today-heading").innerText = `${data.today}'s Dishes`;
+
 
         if (dishes.length === 0) {
             container.innerHTML = `<p>No dishes available today.</p>`;
