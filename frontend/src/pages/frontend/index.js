@@ -200,7 +200,6 @@ export async function loadDishes() {
         const res = await fetch(`${API_BASE}/api/fdishes`);
         const data = await res.json();
         const dishes = data.dishes || [];
-                console.log('Today:', data.today);
 
         if (dishes.length === 0) {
             container.innerHTML = `<p>No dishes available today.</p>`;
