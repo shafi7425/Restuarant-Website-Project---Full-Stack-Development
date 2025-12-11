@@ -3048,9 +3048,9 @@ li {
 .vertical-product-box .vertical-product-box-img .offers .seller-badge.wishlist-icon .fill-icon {
   font-size: calc(16px + 6 * (100vw - 320px) / 1600);
 }
-.vertical-product-box .vertical-product-body .vertical-product-title {
+.vertical-product-box .vertical-product-body .vertical-product-title, .vertical-product-box .vertical-product-body span {
   color: rgba(var(--dark-text), 1);
-  font-size: calc(15px + 5 * (100vw - 320px) / 1600);
+  font-size: calc(12px + 5 * (100vw - 320px) / 1600);
   font-weight: 600;
   line-height: normal;
   -webkit-transition: 0.4s ease;
