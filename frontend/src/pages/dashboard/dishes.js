@@ -119,6 +119,7 @@ function pageTemplate() {
                     <div class="ms-auto d-flex gap-2 align-items-center">
                         <div class="text-muted small">Total: <strong id="dishesCount">0</strong></div>
                         <button id="btnAddDish" class="btn btn-sm btn-success">+ Add Dish</button>
+                        <a class="btn btn-sm btn-primary" href="/admin/dishcategories">View Categories</button>
                         <button id="refreshDishes" class="btn btn-sm btn-outline-primary">Refresh</button>
                     </div>
                 </div>
