@@ -50,6 +50,7 @@ async function fetchDishes() {
     try {
         const base = typeof API_BASE !== "undefined" ? API_BASE : "";
         const res = await apiFetch(`${base}/api/dishes`);
+        console.log("Fetched dishes:", res);
         // handle possible shapes
         if (Array.isArray(res)) return res;
         if (Array.isArray(res.dishes)) return res.dishes;
