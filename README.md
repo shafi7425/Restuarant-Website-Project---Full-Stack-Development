@@ -5,7 +5,7 @@
 ---
 
 ## Admin Credentials
-- **Email:** admin@foodieweb.com  
+- **Email:** shafiullah7425@gmail.com  
 - **Password:** 12345678  
 
 ---
