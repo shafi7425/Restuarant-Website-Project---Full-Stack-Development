@@ -6,13 +6,13 @@ export function menu() {
     <!-- title section start -->
     <section class="page-head-section app-section">
         <div class="container page-heading">
-            <h2 class="h3 mb-3 text-white text-center">About us</h2>
+            <h2 class="h3 mb-3 text-white text-center">Menu</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-star">
                     <li class="breadcrumb-item">
                         <a href="/"><i class="ri-home-line"></i>Home</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">About us</li>
+                    <li class="breadcrumb-item active" aria-current="page">Menu</li>
                 </ol>
             </nav>
         </div>
