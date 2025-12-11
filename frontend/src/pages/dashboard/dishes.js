@@ -420,7 +420,6 @@ function renderTable(items, offset = 0) {
                 </div>
             </td>
             <td>$${price}</td>
-            // <td>${escapeHtml(catTitle)}</td>
             <td>${created}</td>
             <td>
                 <div class="d-flex gap-2">
@@ -439,7 +438,6 @@ function renderTable(items, offset = 0) {
                 <th>Dish ID</th>
                 <th>Dish</th>
                 <th>Price</th>
-                // <th>Category</th>
                 <th>Created</th>
                 <th style="min-width:160px">Actions</th>
             </tr>
