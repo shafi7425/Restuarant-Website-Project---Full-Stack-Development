@@ -18,7 +18,7 @@ export function home() {
                                 Order online, explore our changing menu, and enjoy freshly prepared dishes delivered right to your doorstep.
                                 </p>
                                 <div class="search-section">
-                                    <a class="btn theme-btn mt-0" href="#" role="button">Order Now</a>
+                                    <a class="btn theme-btn mt-0" href="/menu" role="button">Order Now</a>
                                 </div>
                             </div>
                         </div>
