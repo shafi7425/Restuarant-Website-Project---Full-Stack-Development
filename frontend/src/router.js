@@ -18,6 +18,7 @@ import { dishesPage } from './pages/dashboard/dishes.js';
 import { dishcategoriesPage } from './pages/dashboard/dish-categories.js';
 import { blogsPage } from './pages/dashboard/blogs.js';
 import { announcementsPage } from './pages/dashboard/announcements.js';
+import { menu } from './pages/frontend/menu.js';
 
 
 
@@ -87,6 +88,17 @@ export function router(path) {
         case path === '/blogs':
             app.innerHTML = blogs();
             blogsInit();
+            setMeta({
+                title: 'Blogs - Foodie Web',
+                description: 'Read the latest articles and updates.',
+                keywords: 'blogs, food, Foodie Web'
+            });
+            break;
+
+        // ✅ Blogs
+        case path === '/menu':
+            app.innerHTML = menu();
+            loadDishes();
             setMeta({
                 title: 'Blogs - Foodie Web',
                 description: 'Read the latest articles and updates.',

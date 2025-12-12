@@ -126,6 +126,7 @@ export function renderHeader() {
                         <ul class="navbar-nav justify-content-center flex-grow-1">
                             <li class="nav-item"><a class="nav-link" href="/" data-link>Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="/about-us" data-link>About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/menu" data-link>Menu</a></li>
                             <li class="nav-item"><a class="nav-link" href="/blogs" data-link>Blogs</a></li>
                             <li class="nav-item"><a class="nav-link" href="/cart" data-link>Cart</a></li>
                             <li class="nav-item"><a class="nav-link" href="/contact-us" data-link>Contact Us</a></li>
