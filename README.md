@@ -24,17 +24,25 @@ Targeting Asian people to provide authentic asian food taste.
 
 ---
 
-## Admin Credentials
-- **Email:** shafiullah7425@gmail.com  
-- **Password:** 12345678  
-
----
-
 ## Project Overview
 Foodie Web is a **full-stack restaurant management application** built with:
 
 - **Backend:** Python (Flask)  
 - **Frontend:** Vanilla JS with modern modular structure  
+
+## Group Members Roles
+
+-- Shafi Ullah  | Backend - Dashboard api writes- authorizition- authentication- frontend login page and registration page- frontend dashboard design - orders page, announcement bar - dashboard page
+
+-- Noman Haider  | Backend - frontend api calling ---  frontend design - mongo db setup and handling - frontend dashboard design - dishes - blogs -categories pages
+
+-- Hassan Naseer  | Frontend design , checkout page, cart page, order confirmation page, order tracking page
+
+-- Tabish Arslan  | Frontend design homepage , about us page, single product page - header - footer
+
+Everything done by team collabration. 
+
+
 
 ### Features:
 - Role-based authentication (Admin/User)  
