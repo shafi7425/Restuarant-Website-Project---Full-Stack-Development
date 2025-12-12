@@ -4,7 +4,25 @@
 
 ---
 
-**Website Live Link:** https://restuarant-website-project-full-sta-two.vercel.app/
+**Website Live Link:** [Foodie Web](https://restuarant-website-project-full-sta-two.vercel.app/)
+
+## 👥 Group Members
+
+- **Shafi Ullah**
+- **Noman Haider**
+- **Tabish Arslan**
+- **Hassan Naseer**
+
+---
+
+## 💡 Project Idea
+
+A restaurant website inspired by the Asia Food. Customers can browse the menu, add items to a cart, place orders; admins manage menu items, track order, users, and orders. The special menu update on daily basis. 
+
+## 🎯 Target audience
+Targeting Asian people to provide authentic asian food taste. 
+
+---
 
 ## Admin Credentials
 - **Email:** shafiullah7425@gmail.com  
@@ -64,13 +82,49 @@ npm run dev
 Frontend will run at: http://localhost:5173
 
 ....................................................................................
-....................................................................................
+.................................................................................... 
+```
+## 🧑‍🔬 Functionalities of Application
 
-Testing the Application
 
-Admin Testing
+## Landing Page
+![landing page](image.png)
+
+## product page 
+![product](image-1.png)
+
+## Cart Page
+![cart page](image-2.png)
+
+
+## To place order must sign up
+![sign up](image-3.png)
+
+
+## Checkout Page
+
+![checkout](image-4.png)
+
+## Order confirmation
+![confirmation](image-5.png)
+
+## tracking Order
+![Track order](image-6.png)
+
+
+----
+
+**Admin Testing**
+
+## Admin Credentials
+- **Email:** shafiullah7425@gmail.com  
+- **Password:** 12345678  
+
+---
 
 Login as admin at /login
+
+![Login page](login-page.png)
 
 Access /dashboard to verify:
 
