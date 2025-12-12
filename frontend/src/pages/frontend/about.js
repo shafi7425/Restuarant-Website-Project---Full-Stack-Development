@@ -239,7 +239,7 @@ export function about() {
                         </div>
                         <div class="member-details">
                             <h5 class="member-name fw-semibold dark-text">
-                                Johnson Clarke
+                                Hassan Naseer
                             </h5>
                             <h6 class="fw-normal content-color mt-1">Architect Engineer</h6>
                             <ul class="social-icon">
