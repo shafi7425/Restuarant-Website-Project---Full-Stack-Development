@@ -48,6 +48,7 @@ export function renderFooter() {
                                 <div>
                                     <h5 class="footer-title">Account</h5>
                                     <ul class="content">
+                                        <li><a class="nav-links" href="/track-order"><h6>Track Order</h6></a></li>
                                         <li><a class="nav-links" href="#"><h6>My orders</h6></a></li>
                                         <li><a class="nav-links" href="#"><h6>Wishlist</h6></a></li>
                                         <li><a class="nav-links" href="/cart"><h6>Shopping Cart</h6></a></li>

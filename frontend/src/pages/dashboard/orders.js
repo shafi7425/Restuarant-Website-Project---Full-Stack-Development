@@ -416,7 +416,7 @@ function renderTable(orders) {
                     <div class="fw-medium">${escapeHtml(order.user_info?.name || order.customer_name || 'Customer')}</div>
                     <div class="small text-muted">${escapeHtml(order.user_info?.email || order.customer_email || '')}</div>
                 </td>
-                <td>$${total}</td>
+                <td>€${total}</td>
                 <td><span class="badge ${statusClass(order.status)}">${status}</span></td>
                 <td>${createdStr}</td>
                 <td>
@@ -480,8 +480,8 @@ function openOrderModal(order) {
                     <td style="width:64px"><img src="${img}" width="48" height="48" class="rounded" onerror="this.style.visibility='hidden'"/></td>
                     <td>${title}</td>
                     <td>${qty}</td>
-                    <td>$${price}</td>
-                    <td>$${subtotal}</td>
+                    <td>€${price}</td>
+                    <td>€${subtotal}</td>
                 </tr>
             `;
         }).join("")
@@ -532,7 +532,7 @@ function openOrderModal(order) {
                     <p class="mb-1 small text-muted">${escapeHtml(cust.address || order.user_info?.address || "")}</p>
 
                     <h6 class="mt-3">Order Info</h6>
-                    <p class="mb-1"><strong>Total:</strong> $${Number(order.total ?? order.grand_total ?? 0).toFixed(2)}</p>
+                    <p class="mb-1"><strong>Total:</strong> €${Number(order.total ?? order.grand_total ?? 0).toFixed(2)}</p>
                     <p class="mb-1"><strong>Status:</strong> <span id="modalStatusBadge" class="badge ${statusClass(order.status)}">${escapeHtml(order.status || "")}</span></p>
                     <p class="mb-1"><strong>Date:</strong> ${createdStr}</p>
                     <p class="mb-1"><strong>Notes:</strong> <div class="small text-muted">${notes || "<i>None</i>"}</div></p>
