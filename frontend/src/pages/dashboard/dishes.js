@@ -419,7 +419,7 @@ function renderTable(items, offset = 0) {
                     </div>
                 </div>
             </td>
-            <td>$${price}</td>
+            <td>€${price}</td>
             <td>${created}</td>
             <td>
                 <div class="d-flex gap-2">

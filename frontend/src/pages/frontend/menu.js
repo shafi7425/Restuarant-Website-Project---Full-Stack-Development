@@ -72,9 +72,9 @@ export async function loadDishes() {
                             <a href="/dish?id=${dish._id}" data-link>
                                 <h4 class="vertical-product-title">${dish.title}</h4>
                             </a>
-                            <span>Price: €${dish.price}</span>
-                        </div>
                         
+                        </div>
+                           <span>Price: €${dish.price}</span>
                     </div>
                 </div>
             </div>

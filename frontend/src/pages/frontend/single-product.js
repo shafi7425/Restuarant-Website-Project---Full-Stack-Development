@@ -98,7 +98,7 @@ async function loadDish(id) {
 
         document.getElementById("dish-img").src = dish.img;
         document.getElementById("dish-description").innerText = dish.description || "No description available.";
-        document.getElementById("dish-price").innerText = `Price: $${dish.price}`;
+        document.getElementById("dish-price").innerText = `Price: €${dish.price}`;
 
         // Add to Cart button
         document.getElementById("add-to-cart").addEventListener("click", () => {

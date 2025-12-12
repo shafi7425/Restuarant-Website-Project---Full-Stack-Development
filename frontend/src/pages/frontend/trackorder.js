@@ -139,7 +139,7 @@ export function trackorderInit() {
             const itemsHTML = (itemsArr.length > 0)
                 ? itemsArr.map(it => {
                     const n = normalizeItem(it);
-                    return `<li>${escapeHtml(n.title)} × ${escapeHtml(String(n.qty))} - $${fmtMoney(n.price)}</li><br>`;
+                    return `<li>${escapeHtml(n.title)} × ${escapeHtml(String(n.qty))} - €${fmtMoney(n.price)}</li><br>`;
                 }).join("")
                 : "<li>No items found</li>";
 
@@ -151,7 +151,7 @@ export function trackorderInit() {
                 <div class="order-info text-start border p-3 rounded bg-light">
                     <h5>Order ID: ${escapeHtml(order._id || order.id || order.order_id || orderId)}</h5>
                     <p>Status: <strong class="text-primary">${escapeHtml(order.status || "unknown")}</strong></p>
-                    <p>Total: <strong>$${fmtMoney(total)}</strong></p>
+                    <p>Total: <strong>€${fmtMoney(total)}</strong></p>
                     <p>Order Date: ${escapeHtml(createdAtStr)}</p>
 
                     <h6 class="mt-3">Items:</h6>

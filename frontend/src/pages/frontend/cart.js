@@ -22,7 +22,7 @@ export function cartPage() {
             <div id="cart-items" class="row g-3"></div>
 
             <div class="mt-4 text-end">
-                <h3>Total: $<span id="cart-total">0</span></h3>
+                <h3>Total: €<span id="cart-total">0</span></h3>
             </div>
 
             <div class="mt-3 text-end">
@@ -89,7 +89,7 @@ function renderCart() {
             <img src="${item.img}" class="img-fluid" style="width:100px; height:100px; object-fit:cover;" alt="${item.title}">
             <div class="ms-3 flex-grow-1">
                 <h5>${item.title}</h5>
-                <p>Price: $${item.price} × <span id="qty-${item._id}">${item.qty}</span></p>
+                <p>Price: €${item.price} × <span id="qty-${item._id}">${item.qty}</span></p>
                 <div class="d-flex gap-2">
                     <button class="btn btn-sm btn-outline-primary" data-action="decrease" data-id="${item._id}">-</button>
                     <button class="btn btn-sm btn-outline-primary" data-action="increase" data-id="${item._id}">+</button>

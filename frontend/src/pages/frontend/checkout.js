@@ -54,7 +54,7 @@ export function checkoutPage() {
                         <div id="checkout-items"></div>
 
                         <h4 class="mt-3">
-                            Total: $<span id="checkout-total">
+                            Total: €<span id="checkout-total">
                                 ${cart.reduce((sum, item) => sum + item.qty * item.price, 0).toFixed(2)}
                             </span>
                         </h4>
@@ -124,7 +124,7 @@ function renderCheckoutItems() {
             <div>
                 <h5 class="m-0">${item.title}</h5>
                 <p class="m-0">Qty: ${item.qty}</p>
-                <strong>$${(item.price * item.qty).toFixed(2)}</strong>
+                <strong>€${(item.price * item.qty).toFixed(2)}</strong>
             </div>
         </div>
         `;

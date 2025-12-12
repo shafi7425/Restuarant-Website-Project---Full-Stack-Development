@@ -125,8 +125,8 @@ export async function dashboardInit() {
         document.getElementById("todayOrders").innerText = stats.todayOrders ?? 0;
         document.getElementById("pendingOrders").innerText = stats.pendingOrders ?? 0;
         document.getElementById("monthOrders").innerText = stats.monthOrders ?? 0;
-        document.getElementById("monthSales").innerText = `$${stats.monthSales ?? 0}`;
-        document.getElementById("todayRevenue").innerText = `$${stats.todayRevenue ?? 0}`;
+        document.getElementById("monthSales").innerText = `€${stats.monthSales ?? 0}`;
+        document.getElementById("todayRevenue").innerText = `€${stats.todayRevenue ?? 0}`;
 
         const analyticsRes = await fetch(`${API_BASE}/api/dashboard-analytics`, {
             headers: { "Authorization": `Bearer ${token}` }
