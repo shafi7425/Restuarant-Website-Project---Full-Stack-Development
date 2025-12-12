@@ -126,21 +126,30 @@ Login as admin at /login
 
 ![Login page](login-page.png)
 
-Access /dashboard to verify:
+## Access /dashboard to verify:
 
-Total users and active users display correctly
+- Total users and active users display correctly
 
-Orders: filter, search, view modal, update status
+- Orders: filter, search, view modal, update status
 
-Dishes: add, edit, delete
+![dashboard](image-7.png)
 
-Blogs: add, edit, delete
+## Dishes: add, edit, delete
 
-Announcements: add schedule, slider displays correctly
+![dishes](image-8.png)
+
+
+## Blogs: add, edit, delete
+
+![blogs](image-9.png)
+
+## Announcements: add schedule, slider displays correctly
+
+![annoucement](image-10.png)
 
 Verify analytics charts update according to orders
 
-User Testing
+## User Testing
 
 Register/login as a normal user
 
@@ -148,12 +157,20 @@ Browse homepage and announcements slider
 
 Place order and verify it appears in admin dashboard
 
+![dashboard](image-11.png)
+
 Check order status updates
 
 General Testing
 
-Check responsiveness on mobile/desktop
+## Check responsiveness on mobile/desktop
+
+![mobile](image-12.png)
 
 Ensure all forms validate input
 
 Verify all modals, sliders, and filters work smoothly
+
+Lighthouse result
+
+![lighthouse](image-13.png)
